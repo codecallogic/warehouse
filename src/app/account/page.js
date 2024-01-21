@@ -97,7 +97,7 @@ const Account = ({}) => {
                 <div className="flex flex-col">
                   <SVG
                     svg={'horizontalBar'}
-                    width={180}
+                    width={150}
                     height={10}
                     dataOne={89}
                     backgroundColor={'#EEEEEE'}

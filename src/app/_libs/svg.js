@@ -10,6 +10,12 @@ const SVG = ({svg, width, height, schemeOne, backgroundColor, dataOne, dataTwo, 
           </svg>
           break;
 
+        case 'close':
+          return <svg enable-background="new 0 0 48 48" height={height} version="1.1" viewBox="0 0 48 48" width={width}>
+            <g id="BG_xA0_Image_1_"/><g id="nature_1_"/><g id="Nature"/><g id="e-commerce_1_"/><g id="E-commerce"/><g id="organizing_1_"/><g id="Organizing"/><g id="business_1_"/><g id="Business"/><g id="data_communications_1_"/><g id="Data__x26__communications"/><g id="UI_1_"><g id="x_2_"><g><polygon points="48,1.416 46.585,0 24,22.599 1.445,0.03 0.031,1.446 22.585,24.015 0,46.584 1.414,48 24,25.431 46.555,48      47.969,46.584 25.415,24.015    "/></g></g></g><g id="GUI"/><g id="Media_files_icons_copy_1_"/><g id="Media_files"/>
+          </svg>
+          break;
+
         case 'arrowRight':
           return <svg width={width} height={height} viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
               <path fill={backgroundColor} d="M20 10C20 15.5228 15.5228 20 10 20C4.47715 20 0 15.5228 0 10C0 4.47715 4.47715 0 10 0C15.5228 0 20 4.47715 20 10Z"/>

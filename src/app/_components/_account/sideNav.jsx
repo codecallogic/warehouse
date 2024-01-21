@@ -1,14 +1,29 @@
 
 import SVG from '@/app/_libs/svg'
 
+//// HELPERS
+import { initApp } from '@/app/_helpers/main'
+
 const Nav = ({}) => {
   
   return (
     <div
       id="mobile-menu"
-      className="w-[345px] bg-white h-screen shadow-lg dark:bg-darkSchemeOne"
+      className="hidden absolute left-0 top-0 z-10 w-[345px] bg-white h-screen shadow-lg dark:bg-darkSchemeOne"
     >
-      <div className="w-full flex flex-col justify-center items-center">
+      <div className="w-full flex flex-col items-center relative">
+        <div
+          className="absolute top-5 right-2 hover:cursor-pointer shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] transition-all ease-in-out hover:top-4"
+          onClick={() => initApp()}
+        >
+          <SVG
+            svg={'close'}
+            width={25}
+            height={25}
+            schemeOne={'black'}
+          >
+          </SVG>
+        </div>
         <div 
           className="w-[224px] h-[120px] py-[25px]"
         >
