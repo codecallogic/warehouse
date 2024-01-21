@@ -16,7 +16,130 @@
   }
 }
 
+@layer components {
+  .loading {
+    width: 2vmax;
+    height: 2vmax;
+    border-right: 4px solid #ffffff;
+    border-radius: 100%;
+    animation: spinRight 800ms linear infinite;
+    
+    &:before, &:after {
+      content: '';
+      width: 1vmax;
+      height: 1vmax;
+      display: block;
+      position: absolute;
+      top: calc(50% - .5vmax);
+      left: calc(50% - .5vmax);
+      border-left: 3px solid #ffffff;
+      border-radius: 100%;
+      animation: spinLeft 800ms linear infinite;
+    }
+    
+    &:after {
+      width: .3vmax;
+      height: .3vmax;
+      top: calc(50% - .1vmax);
+      left: calc(50% - .1vmax);
+      border: 0;
+      border-right: 2px solid #ffffff;
+      animation: none;
+    }
+  }
+
+  .loadingLarge {
+    width: 8vmax;
+    height: 8vmax;
+    border-right: 4px solid #ffffff;
+    border-radius: 100%;
+    animation: spinRight 800ms linear infinite;
+    
+    &:before, &:after {
+      content: '';
+      width: 6vmax;
+      height: 6vmax;
+      display: block;
+      position: absolute;
+      top: calc(50% - 3vmax);
+      left: calc(50% - 3vmax);
+      border-left: 3px solid #ffffff;
+      border-radius: 100%;
+      animation: spinLeft 800ms linear infinite;
+    }
+    
+    &:after {
+      width: 4vmax;
+      height: 4vmax;
+      top: calc(50% - 2vmax);
+      left: calc(50% - 2vmax);
+      border: 0;
+      border-right: 2px solid #ffffff;
+      animation: none;
+    }
+  }
+
+  @keyframes spinLeft {
+    from {transform:rotate(0deg);}
+    to {transform:rotate(720deg);}
+  }
+  
+  @keyframes spinRight {
+    from {transform:rotate(360deg);}
+    to {transform:rotate(0deg);}
+  }
+
+  .tab {
+		
+
+		width: 90px;
+		padding: 10px 15px;
+		height: 30px;
+
+		position: relative;
+
+		background: #fff;
+
+	}
+  
+  .tab:before,
+	.tab:after {
+		content: "";
+		position: absolute;
+
+		height: 10px;
+		width: 20px;
+
+		bottom: 0;
+	}
+
+  .tab:after {
+    top: 0px;
+		left: -20px;
+
+    border-radius: 0 10px 0 0;
+		-moz-border-radius: 0 10px 0 0;
+		-webkit-border-radius: 0 10px 0 0;
+
+		-webkit-box-shadow: 10px 0 0 0 #EDE0C6;
+		box-shadow: 10px 0 0 0 #EDE0C6;
+	}
+
+	.tab:before {
+		left: -20px;
+
+		border-radius: 0 0 10px 0;
+		-moz-border-radius: 0 0 10px 0;
+		-webkit-border-radius: 0 0 10px 0;
+
+		-webkit-box-shadow: 10px 0 0 0 #EDE0C6;
+		box-shadow: 10px 0 0 0 #EDE0C6;
+	}
+
+}
+
 body {
+  font-family: 'lato';
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
       to bottom,
