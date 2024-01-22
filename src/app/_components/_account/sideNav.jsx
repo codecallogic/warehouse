@@ -9,7 +9,7 @@ const Nav = ({}) => {
   return (
     <div
       id="mobile-menu"
-      className="hidden absolute left-0 top-0 z-10 w-[345px] bg-white h-screen shadow-lg dark:bg-darkSchemeOne"
+      className="hidden absolute left-0 top-0 z-20 w-[345px] bg-white h-screen shadow-lg dark:bg-darkSchemeOne"
     >
       <div className="w-full flex flex-col items-center relative">
         <div

@@ -7,7 +7,7 @@ import { initApp } from '@/app/_helpers/main'
 const TopNav = ({}) => {
   
   return (
-    <div className="w-full h-[120px] shadow-lg flex items-center px-[50px] bg-[#FFF] dark:bg-darkSchemeOne">
+    <div className="w-full h-[120px] flex items-center px-[50px] bg-[#FFF] shadow-lg dark:bg-darkSchemeOne z-10">
       <button 
         id="hamburger-button"
         className='max-md:mr-4 hover:cursor-pointer relative w-5 h-8'
@@ -118,8 +118,8 @@ const TopNav = ({}) => {
         </div>
       </div>
       <div className="ml-[30px] rounded-[50%] w-[60px] h-[60px] bg-gradient-to-r from-gold via-schemethree to-goldShadeOne p-1">
-        <div class="rounded-[50%] flex h-full w-full items-center justify-center bg-white back p-1">
-          <div class="rounded-[50%] flex h-full w-full items-center justify-center bg-grey back p-1">
+        <div className="rounded-[50%] flex h-full w-full items-center justify-center bg-white back p-1">
+          <div className="rounded-[50%] flex h-full w-full items-center justify-center bg-grey back p-1">
 
           </div>
         </div>

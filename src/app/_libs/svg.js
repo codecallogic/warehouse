@@ -11,8 +11,16 @@ const SVG = ({svg, width, height, schemeOne, backgroundColor, dataOne, dataTwo, 
           break;
 
         case 'close':
-          return <svg enable-background="new 0 0 48 48" height={height} version="1.1" viewBox="0 0 48 48" width={width}>
+          return <svg enableBackground="new 0 0 48 48" height={height} version="1.1" viewBox="0 0 48 48" width={width}>
             <g id="BG_xA0_Image_1_"/><g id="nature_1_"/><g id="Nature"/><g id="e-commerce_1_"/><g id="E-commerce"/><g id="organizing_1_"/><g id="Organizing"/><g id="business_1_"/><g id="Business"/><g id="data_communications_1_"/><g id="Data__x26__communications"/><g id="UI_1_"><g id="x_2_"><g><polygon points="48,1.416 46.585,0 24,22.599 1.445,0.03 0.031,1.446 22.585,24.015 0,46.584 1.414,48 24,25.431 46.555,48      47.969,46.584 25.415,24.015    "/></g></g></g><g id="GUI"/><g id="Media_files_icons_copy_1_"/><g id="Media_files"/>
+          </svg>
+          break;
+
+        case 'plus':
+          return <svg enableBackground="new 0 0 128 128" height={height} id="Layer_1" version="1.1" viewBox="0 0 128 128" width={width}><g>
+            <path fill={schemeOne} d="M64,0C28.71,0,0,28.71,0,64s28.71,64,64,64s64-28.71,64-64S99.29,0,64,0z M64,120C33.122,120,8,94.879,8,64   C8,33.122,33.122,8,64,8c30.879,0,56,25.122,56,56C120,94.879,94.879,120,64,120z"/>
+            <path fill={schemeOne} d="M96,60H68V32c0-2.209-1.791-4-4-4s-4,1.791-4,4v28H32c-2.209,0-4,1.791-4,4s1.791,4,4,4h28v28c0,2.209,1.791,4,4,4   s4-1.791,4-4V68h28c2.209,0,4-1.791,4-4S98.209,60,96,60z"/>
+            </g>
           </svg>
           break;
 

@@ -1,6 +1,7 @@
 import { Lato, Poppins } from 'next/font/google'
 import './globals.css'
 import { ApolloWrapper } from "@/app/_libs/apolloWrapper";
+import { ReduxProvider } from './_redux/provider';
 
 const lato = Lato({ 
   subsets: ['latin'], 
@@ -18,9 +19,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${lato.className}`}>
-        <ApolloWrapper>
-          {children}
-        </ApolloWrapper>
+        <ReduxProvider>
+          <ApolloWrapper>
+            {children}
+          </ApolloWrapper>
+        </ReduxProvider>
       </body>
     </html>
   )
