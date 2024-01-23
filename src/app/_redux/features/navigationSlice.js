@@ -13,7 +13,7 @@ export const navigation = createSlice({
   initialState,
   reducers: {
     changeView: (state, action) => {
-      console.log(action)
+      
       setCookie('view', action.payload);
 
       return {
@@ -25,7 +25,7 @@ export const navigation = createSlice({
       }
     },
     changePopup: (state, action) => {
-      console.log('POPUP', action)
+      
       setCookie('popup', action.payload);
       
       return {
