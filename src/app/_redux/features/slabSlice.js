@@ -3,12 +3,18 @@ import { getCookie, deleteCookie } from 'cookies-next';
 
 const initialState = {
   value: {
-    material: []
+    material: [],
+    color: [],
+    supplier: [],
+    grade: [],
+    finish: [],
+    quantity: '',
+    size_1: ''
   }
 }
 
 export const slab = createSlice({
-  name: 'auth',
+  name: 'slab',
   initialState,
   reducers: {
     changeSlabArray: (state, action) => {
@@ -25,9 +31,21 @@ export const slab = createSlice({
           [type]: array
         }
       }
+    },
+    changeSlabValue: (state, action) => {
+      
+      const { value, type } = action.payload;
+      
+      return {
+        ...state,
+        value: {
+          ...state.value,
+          [type]: value
+        }
+      }
     }
   }
 })
 
-export const { changeSlabArray } = slab.actions
+export const { changeSlabArray, changeSlabValue } = slab.actions
 export default slab.reducer
