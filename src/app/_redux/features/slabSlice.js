@@ -20,7 +20,8 @@ const initialState = {
     receivedStatus: '',
     deliveredStatus: '',
     lotNumber: '',
-    qrCode: ''
+    qrCode: '',
+    images: []
   }
 }
 
@@ -29,7 +30,7 @@ export const slab = createSlice({
   initialState,
   reducers: {
     changeSlabArray: (state, action) => {
-
+      console.log(action.payload)
       const { item, type } = action.payload;
       
       let array = []
@@ -54,9 +55,23 @@ export const slab = createSlice({
           [type]: value
         }
       }
+    },
+    changeSlabImages: (state, action) => {
+
+      const { item, type } = action.payload;
+      
+      console.log(item)
+      
+      return {
+        ...state,
+        value: {
+          ...state.value,
+          [type]: [...item]
+        }
+      }
     }
   }
 })
 
-export const { changeSlabArray, changeSlabValue } = slab.actions
+export const { changeSlabArray, changeSlabValue, changeSlabImages } = slab.actions
 export default slab.reducer

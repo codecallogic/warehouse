@@ -1,6 +1,6 @@
 "use client"
 import SVG from '@/app/_libs/svg'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 //// HELPERS
 import { validateNumber, validatePrice } from '@/app/_helpers/validations'
@@ -10,10 +10,11 @@ import { dateNow } from '@/app/_helpers/main'
 import { grades, finishes } from '@/app/_libs/datasets'
 
 //// COMPONENTS
-import InputArrayField from './inputDropdownField'
+import InputDropdownField from './inputDropdownField'
 import InputField from './inputField'
 import ToggleButtonValue from './toggleButtonValue'
 import GenerateQRCode from './qrCode'
+import UploadButton from './fileUploadButton'
 
 const NewSlab = ({
   dispatch,
@@ -24,11 +25,16 @@ const NewSlab = ({
   locations,
   changeSlabArray,
   changeSlabValue,
+  changeSlabImages,
   slab
 }) => {
   
   const [dropdown, setDropdown] = useState('')
   const [message, setMessage] = useState('')
+
+  useEffect(() => {
+    console.log(slab)
+  }, [slab])
   
   return (
     <div id="default-modal" tabIndex="-1" aria-hidden="true" className="overflow-x-hidden fixed top-0 right-0 left-0 z-50 flex bg-[rgba(0, 0, 0, 0.5)] justify-center items-center w-full md:inset-0 h-[calc(100%)] max-h-full bg-black/50">
@@ -77,7 +83,7 @@ const NewSlab = ({
                 dispatch={dispatch}
                 stateMethod={changeSlabValue}
               />
-              <InputArrayField 
+              <InputDropdownField 
                 label="material"
                 item={slab}
                 property={'material'}
@@ -90,7 +96,7 @@ const NewSlab = ({
                 dispatch={dispatch}
                 stateMethod={changeSlabArray}
               />
-              <InputArrayField 
+              <InputDropdownField 
                 label="color"
                 item={slab}
                 property={'color'}
@@ -103,7 +109,7 @@ const NewSlab = ({
                 dispatch={dispatch}
                 stateMethod={changeSlabArray}
               />
-              <InputArrayField 
+              <InputDropdownField 
                 label="supplier"
                 item={slab}
                 property={'supplier'}
@@ -116,7 +122,7 @@ const NewSlab = ({
                 dispatch={dispatch}
                 stateMethod={changeSlabArray}
               />
-              <InputArrayField 
+              <InputDropdownField 
                 label="grade"
                 item={slab}
                 property={'grade'}
@@ -129,7 +135,7 @@ const NewSlab = ({
                 dispatch={dispatch}
                 stateMethod={changeSlabArray}
               />
-              <InputArrayField 
+              <InputDropdownField 
                 label="finish"
                 item={slab}
                 property={'finish'}
@@ -142,7 +148,7 @@ const NewSlab = ({
                 dispatch={dispatch}
                 stateMethod={changeSlabArray}
               />
-              <InputArrayField 
+              <InputDropdownField 
                 label="location"
                 item={slab}
                 property={'location'}
@@ -242,6 +248,63 @@ const NewSlab = ({
                 setMessage={setMessage}
               >
               </GenerateQRCode>
+              <UploadButton
+                svg={true}
+                svgType={'upload'}
+                svgWidth={40}
+                svgHeight={40}
+                svgColor={'#B78514'}
+                label={'Upload Images'}
+                formType={'file'}
+                id="imageFiles"
+                item={slab}
+                property={'images'}
+                dispatch={dispatch}
+                stateMethod={changeSlabImages}
+                setMessage={setMessage}
+              >
+              </UploadButton>
+              { slab.images.length == 0 &&
+                 <a 
+                 className="w-full mt-2 rounded-xl"
+                 target="_blank" 
+                 rel="noreferrer"
+                 >
+                   <img 
+                    className="w-full mt-2 rounded-xl"
+                    src='https://via.placeholder.com/300'
+                   />
+                 </a>
+              }
+              {slab.images.length > 0 && slab.images.map((item, idx) => (
+                <a 
+                key={idx} 
+                onClick={() => window.open(item.location, '_blank')}
+                className="w-full relative"
+                target="_blank" 
+                rel="noreferrer"
+                >
+                  <img 
+                    src={item.location}
+                  />
+                  <div 
+                    className="absolute top-5 right-3 w-[30px] h-[30px] rounded-[50%] flex justify-center items-center hover:cursor-pointer"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                  {/* { loading == 'delete_image' ? 
+                    <div className="loading-spinner"></div>
+                    : */}
+                    <SVG 
+                      svg={'close'}
+                      width={20}
+                      height={20}
+                      schemeOne={'black'}
+                    >
+                    </SVG>
+                  {/* } */}
+                  </div>
+                </a>
+              ))}
             </div>
           </div>
       </div>

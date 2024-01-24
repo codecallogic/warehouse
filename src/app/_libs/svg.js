@@ -11,7 +11,7 @@ const SVG = ({svg, width, height, schemeOne, backgroundColor, dataOne, dataTwo, 
           break;
 
         case 'close':
-          return <svg enableBackground="new 0 0 48 48" height={height} version="1.1" viewBox="0 0 48 48" width={width}>
+          return <svg enableBackground="new 0 0 48 48" height={height} version="1.1" viewBox="0 0 48 48" width={width} fill={schemeOne}>
             <g id="BG_xA0_Image_1_"/><g id="nature_1_"/><g id="Nature"/><g id="e-commerce_1_"/><g id="E-commerce"/><g id="organizing_1_"/><g id="Organizing"/><g id="business_1_"/><g id="Business"/><g id="data_communications_1_"/><g id="Data__x26__communications"/><g id="UI_1_"><g id="x_2_"><g><polygon points="48,1.416 46.585,0 24,22.599 1.445,0.03 0.031,1.446 22.585,24.015 0,46.584 1.414,48 24,25.431 46.555,48      47.969,46.584 25.415,24.015    "/></g></g></g><g id="GUI"/><g id="Media_files_icons_copy_1_"/><g id="Media_files"/>
           </svg>
           break;
@@ -151,6 +151,12 @@ const SVG = ({svg, width, height, schemeOne, backgroundColor, dataOne, dataTwo, 
           return <svg width={width} height={height} viewBox="0 0 117 81" fill="none">
             <path d="M114 3L96.7632 35.8536C91.8407 45.2359 78.6837 45.9617 72.7592 37.1776L69.7351 32.6941C63.5646 23.5454 49.7285 24.7994 45.3034 34.9083L30.2518 69.2924C26.083 78.8157 13.3554 80.634 6.68677 72.659L3.00006 68.25" stroke={schemeOne} strokeWidth="6" strokeLinecap="round"/>
           </svg>                      
+          break;
+
+        case 'upload':
+          return <svg version="1.1" width={width} height={height} viewBox="0 0 30 28">
+            <path fill={schemeOne} d="M20 13.5c0-0.125-0.047-0.266-0.141-0.359l-5.5-5.5c-0.094-0.094-0.219-0.141-0.359-0.141-0.125 0-0.266 0.047-0.359 0.141l-5.484 5.484c-0.094 0.109-0.156 0.234-0.156 0.375 0 0.281 0.219 0.5 0.5 0.5h3.5v5.5c0 0.266 0.234 0.5 0.5 0.5h3c0.266 0 0.5-0.234 0.5-0.5v-5.5h3.5c0.281 0 0.5-0.234 0.5-0.5zM30 18c0 3.313-2.688 6-6 6h-17c-3.859 0-7-3.141-7-7 0-2.719 1.578-5.187 4.031-6.328-0.016-0.234-0.031-0.453-0.031-0.672 0-4.422 3.578-8 8-8 3.25 0 6.172 1.969 7.406 4.969 0.719-0.625 1.641-0.969 2.594-0.969 2.203 0 4 1.797 4 4 0 0.766-0.219 1.516-0.641 2.156 2.719 0.641 4.641 3.063 4.641 5.844z"></path>
+          </svg>  
           break;
         
     }

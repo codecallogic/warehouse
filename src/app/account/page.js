@@ -13,7 +13,7 @@ import NewSlab from "../_components/_forms/slab";
 //// REDUCERS
 import { useDispatch, useSelector } from "react-redux";
 import { changeView, changePopup } from "@/app/_redux/features/navigationSlice";
-import { changeSlabArray, changeSlabValue } from "@/app/_redux/features/slabSlice";
+import { changeSlabArray, changeSlabValue, changeSlabImages } from "@/app/_redux/features/slabSlice";
 
 ///// QUERIES AND MUTATIONS
 import GET_MATERIALS from '@/app/_queries/fetchMaterials'
@@ -71,6 +71,7 @@ const Account = ({}) => {
           locations={dataLocations.data && dataLocations.data.allLocations}
           changeSlabArray={changeSlabArray}
           changeSlabValue={changeSlabValue}
+          changeSlabImages={changeSlabImages}
           slab={slab}
         />
       }
