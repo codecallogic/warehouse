@@ -171,7 +171,7 @@ export default function Home() {
                 </div>
               </div>
               <div 
-                className="w-full flex justify-center mt-2"
+                className="w-min flex justify-center mt-2"
                 onClick={() => submitLogin()}
               >
                 <Button 
