@@ -49,7 +49,7 @@ const InputField = ({
           validation 
           ? 
            (
-            validationMethod(id),
+            validationMethod(id, e),
             dispatch(stateMethod({ value: e.target.value, type: property }))
            )
           :

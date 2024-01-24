@@ -2,8 +2,9 @@
 import SVG from '@/app/_libs/svg'
 import { useState } from 'react'
 
-//// VALIDATIONS
-import { validateNumber } from '@/app/_helpers/validations'
+//// HELPERS
+import { validateNumber, validatePrice } from '@/app/_helpers/validations'
+import { dateNow } from '@/app/_helpers/main'
 
 //// DATASETS
 import { grades, finishes } from '@/app/_libs/datasets'
@@ -11,6 +12,7 @@ import { grades, finishes } from '@/app/_libs/datasets'
 //// COMPONENTS
 import InputArrayField from './inputDropdownField'
 import InputField from './inputField'
+import ToggleButtonValue from './toggleButtonValue'
 
 const NewSlab = ({
   dispatch,
@@ -43,6 +45,30 @@ const NewSlab = ({
                 </button>
             </div>
             <div className="p-4 md:p-5 space-y-4 h-[40rem] overflow-y-scroll">
+              <ToggleButtonValue
+                item={slab}
+                value={'Timestamp order'}
+                property={'orderedStatus'}
+                clickValue={`Ordered, ${dateNow()}`}
+                dispatch={dispatch}
+                stateMethod={changeSlabValue}
+              />
+              <ToggleButtonValue
+                item={slab}
+                value={'Timestamp processing'}
+                property={'receivedStatus'}
+                clickValue={`Received, ${dateNow()}`}
+                dispatch={dispatch}
+                stateMethod={changeSlabValue}
+              />
+              <ToggleButtonValue
+                item={slab}
+                value={'Timestamp delivery'}
+                property={'deliveredStatus'}
+                clickValue={`Delivered, ${dateNow()}`}
+                dispatch={dispatch}
+                stateMethod={changeSlabValue}
+              />
               <InputArrayField 
                 label="material"
                 item={slab}
@@ -121,11 +147,61 @@ const NewSlab = ({
               <InputField 
                 label="Size 1"
                 item={slab}
-                property={'size_1'}
+                property={'sizeOne'}
                 dispatch={dispatch}
                 stateMethod={changeSlabValue}
                 validation={true}
-                id="size_1"
+                id="sizeOne"
+                validationMethod={validateNumber}
+              />
+              <InputField 
+                label="Size 2"
+                item={slab}
+                property={'sizeTwo'}
+                dispatch={dispatch}
+                stateMethod={changeSlabValue}
+                validation={true}
+                id="sizeTwo"
+                validationMethod={validateNumber}
+              />
+              <InputField 
+                label="Thickness"
+                item={slab}
+                property={'thickness'}
+                dispatch={dispatch}
+                stateMethod={changeSlabValue}
+                validation={true}
+                id="thickness"
+                validationMethod={validateNumber}
+              />
+              <InputField 
+                label="Slab Price"
+                item={slab}
+                property={'slabPrice'}
+                dispatch={dispatch}
+                stateMethod={changeSlabValue}
+                validation={true}
+                id="slabPrice"
+                validationMethod={validatePrice}
+              />
+              <InputField 
+                label="Price per sqft"
+                item={slab}
+                property={'priceSqft'}
+                dispatch={dispatch}
+                stateMethod={changeSlabValue}
+                validation={true}
+                id="priceSqft"
+                validationMethod={validatePrice}
+              />
+              <InputField 
+                label="Block"
+                item={slab}
+                property={'block'}
+                dispatch={dispatch}
+                stateMethod={changeSlabValue}
+                validation={true}
+                id="block"
                 validationMethod={validateNumber}
               />
             </div>

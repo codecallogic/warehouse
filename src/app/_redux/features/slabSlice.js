@@ -9,7 +9,15 @@ const initialState = {
     grade: [],
     finish: [],
     quantity: '',
-    size_1: ''
+    sizeOne: '',
+    sizeTwo: '',
+    thickness: '',
+    slabPrice: '',
+    priceSqft: '',
+    block: '',
+    orderedStatus: '',
+    receivedStatus: '',
+    deliveredStatus: ''
   }
 }
 
