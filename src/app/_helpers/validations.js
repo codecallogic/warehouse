@@ -3,7 +3,7 @@ export const validateNumber = (type) => {
   
   const regex = /[^0-9|\n\r]/g
 
-  if(input.value && type == 'size_1' || input.value && type == 'size_2') {
+  if(input.value && type == 'sizeOne' || input.value && type == 'sizeTwo') {
     return input.value = input.value.split(regex).join('') + ' in'
   }
 

@@ -13,6 +13,7 @@ import { grades, finishes } from '@/app/_libs/datasets'
 import InputArrayField from './inputDropdownField'
 import InputField from './inputField'
 import ToggleButtonValue from './toggleButtonValue'
+import GenerateQRCode from './qrCode'
 
 const NewSlab = ({
   dispatch,
@@ -20,12 +21,14 @@ const NewSlab = ({
   materials,
   colors,
   suppliers,
+  locations,
   changeSlabArray,
   changeSlabValue,
   slab
 }) => {
   
   const [dropdown, setDropdown] = useState('')
+  const [message, setMessage] = useState('')
   
   return (
     <div id="default-modal" tabIndex="-1" aria-hidden="true" className="overflow-x-hidden fixed top-0 right-0 left-0 z-50 flex bg-[rgba(0, 0, 0, 0.5)] justify-center items-center w-full md:inset-0 h-[calc(100%)] max-h-full bg-black/50">
@@ -35,6 +38,11 @@ const NewSlab = ({
                 <h3 className="font-poppins text-[24px] font-[900] text-gray-900 dark:text-white">
                   Create Slab
                 </h3>
+                { message &&
+                  <div className="ml-3 text-[16px] font-[400]">
+                    *{message}
+                  </div>
+                }
                 <button type="button" className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="default-modal"
                   onClick={() => dispatch(changePopup(''))}
                 >
@@ -134,6 +142,19 @@ const NewSlab = ({
                 dispatch={dispatch}
                 stateMethod={changeSlabArray}
               />
+              <InputArrayField 
+                label="location"
+                item={slab}
+                property={'location'}
+                index={0}
+                value={'name'}
+                dropdown={dropdown}
+                setDropdown={setDropdown}
+                dropdownType={'locations'}
+                list={locations}
+                dispatch={dispatch}
+                stateMethod={changeSlabArray}
+              />
               <InputField 
                 label="quantity"
                 item={slab}
@@ -204,6 +225,23 @@ const NewSlab = ({
                 id="block"
                 validationMethod={validateNumber}
               />
+              <InputField 
+                label="Lot Number"
+                item={slab}
+                property={'lotNumber'}
+                dispatch={dispatch}
+                stateMethod={changeSlabValue}
+                validation={true}
+                id="lotNumber"
+                validationMethod={validateNumber}
+              />
+              <GenerateQRCode
+                item={slab}
+                dispatch={dispatch}
+                stateMethod={changeSlabValue}
+                setMessage={setMessage}
+              >
+              </GenerateQRCode>
             </div>
           </div>
       </div>

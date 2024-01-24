@@ -8,6 +8,7 @@ const initialState = {
     supplier: [],
     grade: [],
     finish: [],
+    location: [],
     quantity: '',
     sizeOne: '',
     sizeTwo: '',
@@ -17,7 +18,9 @@ const initialState = {
     block: '',
     orderedStatus: '',
     receivedStatus: '',
-    deliveredStatus: ''
+    deliveredStatus: '',
+    lotNumber: '',
+    qrCode: ''
   }
 }
 

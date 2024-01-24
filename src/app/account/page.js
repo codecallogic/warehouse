@@ -19,6 +19,7 @@ import { changeSlabArray, changeSlabValue } from "@/app/_redux/features/slabSlic
 import GET_MATERIALS from '@/app/_queries/fetchMaterials'
 import GET_COLORS from '@/app/_queries/fetchColors'
 import GET_SUPPLIERS from '@/app/_queries/fetchSuppliers'
+import GET_LOCATIONS from '@/app/_queries/fetchLocations'
 
 const Account = ({}) => {
   
@@ -31,9 +32,10 @@ const Account = ({}) => {
   const [cookies, setCookie, removeCookie] = useCookies(['token', 'user', 'view']);
 
   //// QUERIES AND MUTATIONS
-  const dataMaterials           = useQuery(GET_MATERIALS, { variables: { id: '109JF0SA9DUFJ0J3', token: 'DIFJAOSDIJFOSDIJFI'}})
-  const dataColors              = useQuery(GET_COLORS, { variables: { id: '109JF0SA9DUFJ0J3', token: 'DIFJAOSDIJFOSDIJFI'}})
+  const dataMaterials            = useQuery(GET_MATERIALS, { variables: { id: '109JF0SA9DUFJ0J3', token: 'DIFJAOSDIJFOSDIJFI'}})
+  const dataColors               = useQuery(GET_COLORS, { variables: { id: '109JF0SA9DUFJ0J3', token: 'DIFJAOSDIJFOSDIJFI'}})
   const dataSuppliers            = useQuery(GET_SUPPLIERS, { variables: { id: '109JF0SA9DUFJ0J3', token: 'DIFJAOSDIJFOSDIJFI'}})
+  const dataLocations            = useQuery(GET_LOCATIONS, { variables: { id: '109JF0SA9DUFJ0J3', token: 'DIFJAOSDIJFOSDIJFI'}})
   
   useEffect(() => {
     setView(currentNavigation.value.view)
@@ -63,9 +65,10 @@ const Account = ({}) => {
         <NewSlab 
           dispatch={dispatch}
           changePopup={changePopup}
-          materials={ dataMaterials.data && dataMaterials.data.allMaterials}
-          colors={ dataColors.data && dataColors.data.allColors}
-          suppliers={ dataSuppliers.data && dataSuppliers.data.allSuppliers}
+          materials={dataMaterials.data && dataMaterials.data.allMaterials}
+          colors={dataColors.data && dataColors.data.allColors}
+          suppliers={dataSuppliers.data && dataSuppliers.data.allSuppliers}
+          locations={dataLocations.data && dataLocations.data.allLocations}
           changeSlabArray={changeSlabArray}
           changeSlabValue={changeSlabValue}
           slab={slab}
