@@ -90,7 +90,7 @@ const Account = ({}) => {
           />
         }
       </div>
-      { popup && 
+      { popup == 'newSlab' && 
         <NewSlab 
           dispatch={dispatch}
           changePopup={changePopup}
