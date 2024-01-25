@@ -22,9 +22,6 @@ export const auth = createSlice({
 
       deleteCookie('user')
       deleteCookie('token')
-      deleteCookie('plan')
-      deleteCookie('section')
-      deleteCookie('subscription')
       
       return {
         value: {

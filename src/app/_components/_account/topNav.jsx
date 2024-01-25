@@ -1,10 +1,17 @@
 
 import SVG from '@/app/_libs/svg'
+import { useState } from 'react'
 
 //// HELPERS
 import { initApp } from '@/app/_helpers/main'
 
-const TopNav = ({}) => {
+const TopNav = ({
+  dispatch,
+  logout,
+  router
+}) => {
+  
+  const [menu, setMenu] = useState(false)
   
   return (
     <div className="w-full h-[120px] flex items-center px-[50px] bg-[#FFF] shadow-lg dark:bg-darkSchemeOne z-10">
@@ -124,7 +131,11 @@ const TopNav = ({}) => {
           </div>
         </div>
       </div>
-      <div className="ml-[20px] flex items-center bg-gold rounded-[50px] px-[27px] py-[16px] hover:cursor-pointer">
+      <div 
+        className="ml-[20px] flex items-center bg-gold rounded-[50px] px-[27px] py-[16px] relative hover:cursor-pointer"
+        onMouseEnter={() => setMenu(true)}
+        onClick={() => menu ? setMenu(false) : setMenu(true)}
+      >
         <div className="text-[18px] font-[500] mr-[17px] text-white">EN</div>
         <SVG
           svg={"arrowDown"}
@@ -133,6 +144,19 @@ const TopNav = ({}) => {
           schemeOne={'white'}
         >
         </SVG>
+        { menu &&
+          <div className="absolute w-[240px] top-[105%] right-0 rounded-xl bg-white shadow-xl">
+            <div 
+              className='px-5 py-3 text-gold text-[16px] hover:bg-gold hover:text-white transition-all ease-in-out rounded-xl'
+              onClick={() => (
+                dispatch(logout()),
+                router.push('/')
+              )}
+            >
+              Logout
+            </div>
+          </div>
+        }
       </div>
     </div>
   )

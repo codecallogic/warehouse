@@ -39,10 +39,13 @@ export default function Home() {
         }
       })
 
+      const expirationDate = new Date();
+      expirationDate.setTime(expirationDate.getTime() + 2 * 60 * 60 * 1000); 
+
       setLoading(false)
       setMessage('')
-      setCookie('token', response.data.login.token)
-      setCookie('user', response.data.login)
+      setCookie('token', response.data.login.token, { expires: expirationDate })
+      setCookie('user', response.data.login, { expires: expirationDate })
 
       router.push('/account');
       

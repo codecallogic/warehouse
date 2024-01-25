@@ -280,15 +280,16 @@ const NewSlab = ({
                 <a 
                 key={idx} 
                 onClick={() => window.open(item.location, '_blank')}
-                className="w-full relative"
+                className="w-full relative rounded-2xl mt-2"
                 target="_blank" 
                 rel="noreferrer"
                 >
                   <img 
+                    className="rounded-2xl bg-cover"
                     src={item.location}
                   />
                   <div 
-                    className="absolute top-5 right-3 w-[30px] h-[30px] rounded-[50%] flex justify-center items-center hover:cursor-pointer"
+                    className="absolute top-3 right-3 w-[30px] h-[30px] rounded-[50%] flex justify-center items-center hover:cursor-pointer"
                     onClick={(e) => e.stopPropagation()}
                   >
                   {/* { loading == 'delete_image' ? 
