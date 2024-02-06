@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { getCookie, deleteCookie } from 'cookies-next';
+// import { find }
 
 const initialState = {
   value: {
@@ -30,7 +30,7 @@ export const slab = createSlice({
   initialState,
   reducers: {
     changeSlabArray: (state, action) => {
-      console.log(action.payload)
+
       const { item, type } = action.payload;
       
       let array = []
@@ -60,8 +60,6 @@ export const slab = createSlice({
 
       const { item, type } = action.payload;
       
-      console.log(item)
-      
       return {
         ...state,
         value: {
@@ -69,9 +67,35 @@ export const slab = createSlice({
           [type]: [...item]
         }
       }
+    },
+    editSlab: (state, action) => {
+
+      const { id, items } = action.payload;
+
+      let foundSlab         = items.find(slab => slab.id === id)
+      let grade             = []
+      if(foundSlab.grade) grade.push({ name: foundSlab.grade })
+      let finish            = []
+      if(foundSlab.finish) finish.push({ name: foundSlab.finish })
+
+      return {
+        ...state,
+        value: {
+          ...state.value,
+          ...foundSlab,
+          grade: grade,
+          finish: finish
+        }
+      }
+      
+    },
+    resetSlab: () => {
+      return {
+        ...initialState
+      }
     }
   }
 })
 
-export const { changeSlabArray, changeSlabValue, changeSlabImages } = slab.actions
+export const { changeSlabArray, changeSlabValue, changeSlabImages, editSlab, resetSlab } = slab.actions
 export default slab.reducer

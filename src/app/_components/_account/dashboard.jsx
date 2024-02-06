@@ -1,5 +1,6 @@
 
 import SVG from '@/app/_libs/svg'
+import { changeEdit } from '@/app/_redux/features/navigationSlice'
 
 const Dashboard = ({
   dispatch,
@@ -155,7 +156,7 @@ const Dashboard = ({
               <div className="w-[30%] flex flex-col items-center">
                 <div 
                   className="hover:cursor-pointer transition-all ease-linear hover:translate-y-1"
-                  onClick={() => dispatch(changePopup('newSlab'))}
+                  onClick={() => (dispatch(changePopup('newSlab'), dispatch(changeEdit(''))))}
                 >
                   <SVG
                     svg={'plus'}
@@ -166,10 +167,15 @@ const Dashboard = ({
                   </SVG>
                 </div>
                 <h1 className="text-[16px] font-poppins font-[400] mt-5">New Slab</h1>
-                <h1 className="text-[16px] font-poppins font-[400] underline text-blue-400 hover:cursor-pointer">view all</h1>
+                <h1 
+                  className="text-[16px] font-poppins font-[400] underline text-blue-400 hover:cursor-pointer"
+                  onClick={() => dispatch(changeView('slabs'))}
+                >
+                  view all
+                </h1>
               </div>
             </div>
-            </div>
+          </div>
           </div>
         </div>
       </div>

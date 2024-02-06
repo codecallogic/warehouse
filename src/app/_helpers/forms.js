@@ -68,28 +68,14 @@ export const generateQR = async (e, validationType, data, dispatch, stateMethod,
 
 }
 
-export const multipleFiles = (e, data, validationType, setMessage, dispatch, stateMethod) => {
-  
-  let filesMax = data[validationType].length + e.target.files.length
-
-  if(filesMax > 3) return (
-    setMessage('Max number of files is 3')
-  )
-
-
-  let filesData
-  
-  if(e.target.files.length > 0){
-    let array = Array.from(e.target.files)
-    
-    filesData = array.map(item => ({
-      name: item.name,
-      type: item.type,
-      size: item.size,
-      location: URL.createObjectURL(item),
-    }));
-  }
-
-  dispatch(stateMethod({ item: [...data[validationType], ...filesData], type: validationType }))
-
+export const removeItemByIndex = (index, array) => {
+  const newArray = [...array];
+  newArray.splice(index, 1);
+  return newArray;
 }
+
+export const replaceItemAtIndex = (index, array, newValue) => {
+  const newArray = [...array];
+  newArray[index] = { url: newValue };
+  return newArray;
+};

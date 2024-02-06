@@ -19,7 +19,7 @@ export default function Home() {
   const router = useRouter();
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState('')
   const [message, setMessage] = useState('')
   const [cookies, setCookie, removeCookie] = useCookies([])
   const [login, { dataLoginForm, loadingLoginForm, errorLoginForm }] = useMutation(LOGIN)
@@ -28,7 +28,7 @@ export default function Home() {
     
     if(!verifyEmail(email)) return setMessage('Email is invalid')
     if(!password) return setMessage('Password is required')
-    setLoading(true)
+    setLoading('login')
     
     try {
       const response = await login({
@@ -42,7 +42,7 @@ export default function Home() {
       const expirationDate = new Date();
       expirationDate.setTime(expirationDate.getTime() + 2 * 60 * 60 * 1000); 
 
-      setLoading(false)
+      setLoading('')
       setMessage('')
       setCookie('token', response.data.login.token, { expires: expirationDate })
       setCookie('user', response.data.login, { expires: expirationDate })
@@ -92,7 +92,7 @@ export default function Home() {
                   disabled:pointer-events-none 
                   dark:bg-slate-900 
                   dark:border-gray-700 
-                  dark:text-black 
+                  dark:text-white 
                   dark:focus:ring-gray-600
                   focus:pt-7
                   focus:pb-3
@@ -134,7 +134,7 @@ export default function Home() {
                   disabled:pointer-events-none 
                   dark:bg-slate-900 
                   dark:border-gray-700 
-                  dark:text-black 
+                  dark:text-white
                   dark:focus:ring-gray-600
                   focus:pt-7
                   focus:pb-3
@@ -180,7 +180,7 @@ export default function Home() {
                 <Button 
                   label='Login'
                   backgroundColor={'#000000'}
-                  width={50}
+                  width={150}
                   height={50}
                   font={400}
                   fullWidth={false}
@@ -188,6 +188,7 @@ export default function Home() {
                   borderColor={'black'}
                   borderRadius={true}
                   loading={loading}
+                  loadingType={'login'}
                   showSVG={false}
                   svg={'arrowRight'}
                   svgColor={'white'}

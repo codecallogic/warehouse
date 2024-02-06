@@ -17,6 +17,7 @@ const Button = ({
   disabled,
   borderRadius,
   loading,
+  loadingType,
   svgBackgroundColor,
   showSVG
 }) => {
@@ -35,7 +36,7 @@ const Button = ({
       disabled={disabled}
     >
       {
-        loading
+        loading == loadingType
         ?
         <div className="loading border-r-gold after:border-r-gold before:border-l-gold mr-3"></div>
         :

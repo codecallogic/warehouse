@@ -7,14 +7,14 @@ query allSuppliers($id: ID!, $token: String!) {
     name,
     phone,
     address,
-    tax_id,
+    taxID,
     notes,
-    contact_name,
-    contact_phone,
-    contact_email,
+    contactName,
+    contactPhone,
+    contactEmail,
     bank,
     account,
     agency,
-    bank_note
+    bankNote
   }
 }`

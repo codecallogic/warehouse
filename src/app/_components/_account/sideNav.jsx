@@ -4,7 +4,13 @@ import SVG from '@/app/_libs/svg'
 //// HELPERS
 import { initApp } from '@/app/_helpers/main'
 
-const Nav = ({}) => {
+const Nav = ({
+  dispatch,
+  changeView,
+  logout,
+  router,
+  view
+}) => {
   
   return (
     <div
@@ -35,7 +41,10 @@ const Nav = ({}) => {
         </div>
         <div>
           <div className="w-[345px] px-[50px] text-[18px] font-[900] pt-[20px] text-grey">Main Menu</div>
-          <div className="w-[303px] px-[50px] mt-[12px] h-[60px] flex items-center gap-x-[30px] text-gold border-l-[9px] border-gold tab bg-goldShadeOne rounded-br-[150px] rounded-tr-[20px] hover:cursor-pointer">
+          <div
+            className={`w-[303px] px-[50px] mt-[12px] h-[60px] flex items-center gap-x-[30px] hover:cursor-pointer ` + ( view == 'dashboard' ? 'text-gold border-l-[9px] border-gold tab bg-goldShadeOne rounded-br-[150px] rounded-tr-[20px]' : ' text-black' )}
+            onClick={() => dispatch(changeView('dashboard'))}
+          >
             <SVG
               svg={'home'}
               width={24}
@@ -44,6 +53,19 @@ const Nav = ({}) => {
             >
             </SVG>
             <span className='text-[18px] font-[700] leading-[30px]'>Dashboard</span>
+          </div>
+          <div
+            className={`w-[303px] px-[50px] mt-[12px] h-[60px] flex items-center gap-x-[30px] hover:cursor-pointer ` + ( view == 'slabs' ? 'text-gold border-l-[9px] border-gold tab bg-goldShadeOne rounded-br-[150px] rounded-tr-[20px]' : ' text-black ' )}
+            onClick={() => dispatch(changeView('slabs'))}
+          >
+            <SVG
+              svg={'inventory'}
+              width={24}
+              height={24}
+              schemeOne={'#B78514'}
+            >
+            </SVG>
+            <span className='text-[18px] font-[700] leading-[30px]'>Slabs</span>
           </div>
         </div>
       </div>

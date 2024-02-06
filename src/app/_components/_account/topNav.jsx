@@ -7,6 +7,7 @@ import { initApp } from '@/app/_helpers/main'
 
 const TopNav = ({
   dispatch,
+  changeView,
   logout,
   router
 }) => {
@@ -50,12 +51,17 @@ const TopNav = ({
         ">
         </div>
       </button>
-      <h1 className="text-[32px] font-[700] ml-[20px] flex-grow">Dashboard</h1>
+      <h1 
+        className="text-[32px] font-[700] ml-[20px] flex-grow hover:cursor-pointer"
+        onClick={() => dispatch(changeView('dashboard'))}
+      >
+        Dashboard
+      </h1>
       <div className="w-[316px] h-[60px] rounded-[50px] border-[1px] border-grey flex items-center p-[20px]">
         <input 
           type="text"
           placeholder="Search here..."
-          className="text-[14px] font-[400] h-[21px] w-[94px] flex-grow outline-none"
+          className="text-[14px] font-[400] h-[21px] w-[94px] flex-grow outline-none dark:bg-transparent"
         />
         <SVG
           svg="search"

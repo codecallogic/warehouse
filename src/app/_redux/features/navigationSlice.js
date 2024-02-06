@@ -4,7 +4,8 @@ import { getCookie, setCookie, deleteCookie } from 'cookies-next';
 const initialState = {
   value: {
     view: getCookie('view') ? getCookie('view') : 'dashboard',
-    popup: getCookie('popup') ? getCookie('popup') : ''
+    popup: getCookie('popup') ? getCookie('popup') : '',
+    edit: getCookie('edit') ? getCookie('edit') : ''
   }
 }
 
@@ -35,9 +36,21 @@ export const navigation = createSlice({
           popup: action.payload
         }
       }
+    },
+    changeEdit: (state, action) => {
+      
+      setCookie('edit', action.payload);
+      
+      return {
+        ...state,
+        value: {
+          ...state.value,
+          edit: action.payload
+        }
+      }
     }
   }
 })
 
-export const { changeView, changePopup } = navigation.actions
+export const { changeView, changePopup, changeEdit } = navigation.actions
 export default navigation.reducer

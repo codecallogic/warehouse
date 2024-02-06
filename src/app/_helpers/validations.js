@@ -38,3 +38,21 @@ export const validatePrice = (type, e) => {
   input.value = formatter.format(newValue)
 
 }
+
+export const checkObjectValues = (data, other) => {
+  let array = []
+
+  for(let key in data){
+    if(data[key].length > 0){
+      array.push(true)
+    }
+  }
+
+  if(other.length > 0){
+    array.push(true)
+  }
+  
+  if(array.length == 0) return false
+
+  return true
+}

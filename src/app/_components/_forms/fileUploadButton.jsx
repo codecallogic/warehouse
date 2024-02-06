@@ -14,7 +14,9 @@ const FormButton = ({
   property,
   dispatch,
   stateMethod,
-  setMessage
+  setMessage,
+  setImages,
+  images
 }) => {
   
   return (
@@ -28,7 +30,7 @@ const FormButton = ({
         className="hidden"
         accept="image/*" 
         multiple
-        onChange={(e) =>  multipleFiles(e, item, property, setMessage, dispatch, stateMethod)} 
+        onChange={(e) => setImages( prevArray => [...prevArray, e.target.files[0]])} 
       />
       {svg && 
         <SVG
