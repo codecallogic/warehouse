@@ -80,7 +80,7 @@ const NewSlab = ({
           sizeOne: slab.sizeOne,
           sizeTwo: slab.sizeTwo,
           thickness: slab.thickness,
-          slabPrice: slab.slabPrice,
+          priceSlab: slab.priceSlab,
           priceSqft: slab.priceSqft,
           block: slab.block,
           orderedStatus: slab.orderedStatus,
@@ -139,7 +139,7 @@ const NewSlab = ({
           sizeOne: slab.sizeOne,
           sizeTwo: slab.sizeTwo,
           thickness: slab.thickness,
-          slabPrice: slab.slabPrice,
+          priceSlab: slab.priceSlab,
           priceSqft: slab.priceSqft,
           block: slab.block,
           orderedStatus: slab.orderedStatus,
@@ -420,11 +420,11 @@ const NewSlab = ({
               <InputField 
                 label="Slab Price"
                 item={slab}
-                property={'slabPrice'}
+                property={'priceSlab'}
                 dispatch={dispatch}
                 stateMethod={changeSlabValue}
                 validation={true}
-                id="slabPrice"
+                id="priceSlab"
                 validationMethod={validatePrice}
               />
               <InputField 

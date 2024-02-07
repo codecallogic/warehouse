@@ -13,7 +13,7 @@ const initialState = {
     sizeOne: '',
     sizeTwo: '',
     thickness: '',
-    slabPrice: '',
+    priceSlab: '',
     priceSqft: '',
     block: '',
     orderedStatus: '',
@@ -73,6 +73,7 @@ export const slab = createSlice({
       const { id, items } = action.payload;
 
       let foundSlab         = items.find(slab => slab.id === id)
+
       let grade             = []
       if(foundSlab.grade) grade.push({ name: foundSlab.grade })
       let finish            = []
