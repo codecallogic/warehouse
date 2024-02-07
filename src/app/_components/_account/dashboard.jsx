@@ -1,11 +1,12 @@
 
 import SVG from '@/app/_libs/svg'
-import { changeEdit } from '@/app/_redux/features/navigationSlice'
 
 const Dashboard = ({
   dispatch,
   changeView,
-  changePopup
+  changePopup,
+  changeEdit,
+  resetSlab
 }) => {
   
   return (
@@ -156,7 +157,7 @@ const Dashboard = ({
               <div className="w-[30%] flex flex-col items-center">
                 <div 
                   className="hover:cursor-pointer transition-all ease-linear hover:translate-y-1"
-                  onClick={() => (dispatch(changePopup('newSlab'), dispatch(changeEdit(''))))}
+                  onClick={() => (dispatch(changePopup('newSlab'), dispatch(changeEdit('')), dispatch(resetSlab())))}
                 >
                   <SVG
                     svg={'plus'}

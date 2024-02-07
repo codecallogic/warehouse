@@ -123,6 +123,7 @@ const Account = ({}) => {
             changeView={changeView}
             changePopup={changePopup}
             changeEdit={changeEdit}
+            resetSlab={resetSlab}
           />
         }
         { view == 'slabs' &&

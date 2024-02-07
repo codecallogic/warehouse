@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 export default gql`
-mutation NewSlab(
+mutation newSlab(
     $material: [MaterialInputType!]!, 
     $color: [ColorInputType!]!, 
     $supplier: [SupplierInputType!]!, 

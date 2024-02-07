@@ -44,7 +44,7 @@ const NewSlab = ({
   
   const [dropdown, setDropdown] = useState('')
   const [message, setMessage] = useState('')
-  const [loading, setLoading] = useState('deleteSlabImage')
+  const [loading, setLoading] = useState('')
   const [images, setImages] = useState([])
   const { FileInput, openFileDialog, uploadToS3 } = useS3Upload();
 
@@ -67,7 +67,7 @@ const NewSlab = ({
       }
 
       setImages(array)
-
+      
       const response = await newSlab({
         variables: {
           material: slab.material,
@@ -99,6 +99,7 @@ const NewSlab = ({
       
     } catch (error) {
       console.log(error)
+  
       if(error) setMessage(error.message)
     }
     
