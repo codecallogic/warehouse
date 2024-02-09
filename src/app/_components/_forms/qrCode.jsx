@@ -5,14 +5,15 @@ const qrCode = ({
   item,
   dispatch,
   stateMethod,
-  setMessage
+  setMessage,
+  type
 }) => {
  
   return (
     <div>
       <div 
         className="w-full p-5 rounded-2xl border-gold border-[1px] text-center capitalize text-[18px] text-black hover:cursor-pointer"
-        onClick={(e) =>  !item.qrCode ? generateQR(e, 'slabQRCode', item, dispatch, stateMethod, setMessage, 'qrCode') :  dispatch(stateMethod({ value: '', type: 'qrCode'}))}
+        onClick={(e) =>  !item.qrCode ? generateQR(e, type, item, dispatch, stateMethod, setMessage, 'qrCode') :  dispatch(stateMethod({ value: '', type: 'qrCode'}))}
       >
         { item.qrCode ? 'Clear QR' : 'Generate QR' }
       </div>

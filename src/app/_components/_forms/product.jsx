@@ -22,24 +22,25 @@ import Button from '../button'
 ///// HELPERS
 import { checkObjectValues } from '@/app/_helpers/validations'
 
-const NewSlab = ({
+const NewProduct = ({
   dispatch,
   changePopup,
-  materials,
+  brands,
+  models,
+  categories,
   colors,
-  suppliers,
   locations,
-  changeSlabArray,
-  changeSlabValue,
-  changeSlabImages,
-  slab,
-  newSlab,
-  resetSlab,
+  changeProductArray,
+  changeProductValue,
+  changeProductImages,
+  product,
+  newProduct,
+  resetProduct,
   changeView,
   edit,
-  updateSlab,
+  updateProduct,
   refetch,
-  deleteSlabImage
+  deleteProductImage
 }) => {
   
   const [dropdown, setDropdown] = useState('')
@@ -48,12 +49,12 @@ const NewSlab = ({
   const [images, setImages] = useState([])
   const { FileInput, openFileDialog, uploadToS3 } = useS3Upload();
 
-  const submitNewSlab = async () => {
+  const submitNewProduct = async () => {
     
     try {
 
       let array = []
-      setLoading('createSlab')
+      setLoading('createProduct')
       
       if(images){
         const updatedPromises = await Promise.all(images.map(async (item, idx) => {
@@ -68,33 +69,24 @@ const NewSlab = ({
 
       setImages(array)
       
-      const response = await newSlab({
+      const response = await newProduct({
         variables: {
-          material: slab.material,
-          color: slab.color,
-          supplier: slab.supplier,
-          grade: slab.grade,
-          finish: slab.finish,
-          location: slab.location,
-          quantity: slab.quantity,
-          sizeOne: slab.sizeOne,
-          sizeTwo: slab.sizeTwo,
-          thickness: slab.thickness,
-          priceSlab: slab.priceSlab,
-          priceSqft: slab.priceSqft,
-          block: slab.block,
-          orderedStatus: slab.orderedStatus,
-          receivedStatus: slab.receivedStatus,
-          deliveredStatus: slab.deliveredStatus,
-          lotNumber: slab.lotNumber,
-          qrCode: slab.qrCode,
+          brand: product.brand,
+          model: product.model,
+          category: product.category,
+          color: product.color,
+          location: product.location,
+          quantity: product.quantity,
+          description: product.description,
+          price: product.price,
+          qrCode: product.qrCode,
           images: array
         }
       })
 
       setLoading('')
-      dispatch(resetSlab())
-      setMessage(response.data.newSlab.message)
+      dispatch(resetProduct())
+      setMessage(response.data.newProduct.message)
       setImages([])
       
     } catch (error) {
@@ -105,12 +97,12 @@ const NewSlab = ({
     
   }
 
-  const submitUpdateSlab = async () => {
+  const submitUpdateProduct = async () => {
 
     try {
 
       let array = []
-      setLoading('updateSlab')
+      setLoading('updateProduct')
       
       if(images){
 
@@ -127,34 +119,25 @@ const NewSlab = ({
 
       setImages(array)
 
-      const response = await updateSlab({
+      const response = await updateProduct({
         variables: {
-          id: slab.id,
-          material: slab.material,
-          color: slab.color,
-          supplier: slab.supplier,
-          grade: slab.grade,
-          finish: slab.finish,
-          location: slab.location,
-          quantity: slab.quantity,
-          sizeOne: slab.sizeOne,
-          sizeTwo: slab.sizeTwo,
-          thickness: slab.thickness,
-          priceSlab: slab.priceSlab,
-          priceSqft: slab.priceSqft,
-          block: slab.block,
-          orderedStatus: slab.orderedStatus,
-          receivedStatus: slab.receivedStatus,
-          deliveredStatus: slab.deliveredStatus,
-          lotNumber: slab.lotNumber,
-          qrCode: slab.qrCode,
+          id: product.id,
+          brand: product.brand,
+          model: product.model,
+          category: product.category,
+          color: product.color,
+          location: product.location,
+          quantity: product.quantity,
+          description: product.description,
+          price: product.price,
+          qrCode: product.qrCode,
           images: array
         }
       })
 
       refetch()
       setLoading('')
-      setMessage(response.data.updateSlab.message)
+      setMessage(response.data.updateProduct.message)
       
     } catch (error) {
       console.log(error)
@@ -165,13 +148,13 @@ const NewSlab = ({
 
   const deleteImage = async (url) => {
 
-    setLoading(`deleteSlabImage-${url}`)
+    setLoading(`deleteProductImage-${url}`)
 
     try {
 
-      const response = await deleteSlabImage({
+      const response = await deleteProductImage({
         variables: {
-          id: slab.id,
+          id: product.id,
           images: images,
           url: url
         }
@@ -182,7 +165,7 @@ const NewSlab = ({
       refetch()
       setLoading('')
       setImages(newArray)
-      setMessage(response.data.deleteSlabImage.message)
+      setMessage(response.data.deleteProductImage.message)
       
     } catch (error) {
       console.log(error)
@@ -192,8 +175,8 @@ const NewSlab = ({
   }
 
   useEffect(() => {
-    if(slab) setImages(slab.images)
-  }, [slab])    
+    if(product) setImages(product.images)
+  }, [product])    
   
   return (
     <div id="default-modal" tabIndex="-1" aria-hidden="true" className="overflow-x-hidden fixed top-0 right-0 left-0 z-50 flex bg-[rgba(0, 0, 0, 0.5)] justify-center items-center w-full md:inset-0 h-[calc(100%)] max-h-full bg-black/50">
@@ -201,12 +184,12 @@ const NewSlab = ({
           <div className="relative bg-white rounded-xl shadow-xl dark:bg-gray-700">
             <div className="flex items-center justify-between pt-5 pb-3 px-5 rounded-lg dark:border-gray-600 h-[50px]">
                 <h3 className="flex flex-col">
-                  <span className="font-poppins text-[24px] font-[900] text-gray-900 dark:text-white">{edit ? 'Update Slab' : 'Create Slab'}</span>
+                  <span className="font-poppins text-[24px] font-[900] text-gray-900 dark:text-white">{edit ? 'Update Product' : 'Create Product'}</span>
                 </h3>
-                {slab && checkObjectValues(slab, images) && !edit &&
+                {product && checkObjectValues(product, images) && !edit &&
                   <div 
                     className="w-min flex justify-center ml-3"
-                    onClick={() => submitNewSlab()}
+                    onClick={() => submitNewProduct()}
                   >
                     <Button 
                       label='Save'
@@ -219,7 +202,7 @@ const NewSlab = ({
                       borderColor={'black'}
                       borderRadius={true}
                       loading={loading}
-                      loadingType={'createSlab'}
+                      loadingType={'createProduct'}
                       showSVG={false}
                       svg={'arrowRight'}
                       svgColor={'white'}
@@ -227,10 +210,10 @@ const NewSlab = ({
                     />
                   </div>
                 }
-                {slab && checkObjectValues(slab, images) && edit == 'slab' &&
+                {product && checkObjectValues(product, images) && edit == 'product' &&
                   <div 
                     className="w-min flex justify-center ml-3"
-                    onClick={() => submitUpdateSlab()}
+                    onClick={() => submitUpdateProduct()}
                   >
                     <Button 
                       label='Update'
@@ -243,7 +226,7 @@ const NewSlab = ({
                       borderColor={'black'}
                       borderRadius={true}
                       loading={loading}
-                      loadingType={'updateSlab'}
+                      loadingType={'updateProduct'}
                       showSVG={false}
                       svg={'arrowRight'}
                       svgColor={'white'}
@@ -269,53 +252,55 @@ const NewSlab = ({
                 <h3 className="flex flex-col">
                   <span 
                     className="font-poppins text-[16px] font-[400] text-gold underline dark:text-white hover:cursor-pointer"
-                    onClick={() => (dispatch(changeView('slabs'), dispatch(changePopup(''))))}
+                    onClick={() => (dispatch(changeView('products'), dispatch(changePopup(''))))}
                   >
                     view all
                   </span>
                 </h3>
             </div>
             <div className="p-4 md:p-5 space-y-4 h-[40rem] overflow-y-scroll">
-              <ToggleButtonValue
-                item={slab}
-                value={'Timestamp order'}
-                property={'orderedStatus'}
-                clickValue={`Ordered, ${dateNow()}`}
-                dispatch={dispatch}
-                stateMethod={changeSlabValue}
-              />
-              <ToggleButtonValue
-                item={slab}
-                value={'Timestamp processing'}
-                property={'receivedStatus'}
-                clickValue={`Received, ${dateNow()}`}
-                dispatch={dispatch}
-                stateMethod={changeSlabValue}
-              />
-              <ToggleButtonValue
-                item={slab}
-                value={'Timestamp delivery'}
-                property={'deliveredStatus'}
-                clickValue={`Delivered, ${dateNow()}`}
-                dispatch={dispatch}
-                stateMethod={changeSlabValue}
-              />
               <InputDropdownField 
-                label="material"
-                item={slab}
-                property={'material'}
+                label="brands"
+                item={product}
+                property={'brand'}
                 index={0}
                 value={'name'}
                 dropdown={dropdown}
                 setDropdown={setDropdown}
-                dropdownType={'materials'}
-                list={materials}
+                dropdownType={'brands'}
+                list={brands}
                 dispatch={dispatch}
-                stateMethod={changeSlabArray}
+                stateMethod={changeProductArray}
+              />
+              <InputDropdownField 
+                label="models"
+                item={product}
+                property={'model'}
+                index={0}
+                value={'name'}
+                dropdown={dropdown}
+                setDropdown={setDropdown}
+                dropdownType={'models'}
+                list={models}
+                dispatch={dispatch}
+                stateMethod={changeProductArray}
+              />
+              <InputDropdownField 
+                label="categories"
+                item={product}
+                property={'category'}
+                index={0}
+                value={'name'}
+                dropdown={dropdown}
+                setDropdown={setDropdown}
+                dropdownType={'categories'}
+                list={categories}
+                dispatch={dispatch}
+                stateMethod={changeProductArray}
               />
               <InputDropdownField 
                 label="color"
-                item={slab}
+                item={product}
                 property={'color'}
                 index={0}
                 value={'name'}
@@ -324,50 +309,11 @@ const NewSlab = ({
                 dropdownType={'colors'}
                 list={colors}
                 dispatch={dispatch}
-                stateMethod={changeSlabArray}
-              />
-              <InputDropdownField 
-                label="supplier"
-                item={slab}
-                property={'supplier'}
-                index={0}
-                value={'name'}
-                dropdown={dropdown}
-                setDropdown={setDropdown}
-                dropdownType={'suppliers'}
-                list={suppliers}
-                dispatch={dispatch}
-                stateMethod={changeSlabArray}
-              />
-              <InputDropdownField 
-                label="grade"
-                item={slab}
-                property={'grade'}
-                index={0}
-                value={'name'}
-                dropdown={dropdown}
-                setDropdown={setDropdown}
-                dropdownType={'grades'}
-                list={grades}
-                dispatch={dispatch}
-                stateMethod={changeSlabArray}
-              />
-              <InputDropdownField 
-                label="finish"
-                item={slab}
-                property={'finish'}
-                index={0}
-                value={'name'}
-                dropdown={dropdown}
-                setDropdown={setDropdown}
-                dropdownType={'finishes'}
-                list={finishes}
-                dispatch={dispatch}
-                stateMethod={changeSlabArray}
+                stateMethod={changeProductArray}
               />
               <InputDropdownField 
                 label="location"
-                item={slab}
+                item={product}
                 property={'location'}
                 index={0}
                 value={'name'}
@@ -376,94 +322,42 @@ const NewSlab = ({
                 dropdownType={'locations'}
                 list={locations}
                 dispatch={dispatch}
-                stateMethod={changeSlabArray}
+                stateMethod={changeProductArray}
               />
               <InputField 
                 label="quantity"
-                item={slab}
+                item={product}
                 property={'quantity'}
                 dispatch={dispatch}
-                stateMethod={changeSlabValue}
+                stateMethod={changeProductValue}
                 validation={true}
                 id="quantity"
                 validationMethod={validateNumber}
               />
               <InputField 
-                label="Size 1"
-                item={slab}
-                property={'sizeOne'}
+                label="description"
+                item={product}
+                property={'description'}
                 dispatch={dispatch}
-                stateMethod={changeSlabValue}
-                validation={true}
-                id="sizeOne"
-                validationMethod={validateNumber}
+                stateMethod={changeProductValue}
+                id="description"
               />
               <InputField 
-                label="Size 2"
-                item={slab}
-                property={'sizeTwo'}
+                label="Product Price"
+                item={product}
+                property={'price'}
                 dispatch={dispatch}
-                stateMethod={changeSlabValue}
+                stateMethod={changeProductValue}
                 validation={true}
-                id="sizeTwo"
-                validationMethod={validateNumber}
-              />
-              <InputField 
-                label="Thickness"
-                item={slab}
-                property={'thickness'}
-                dispatch={dispatch}
-                stateMethod={changeSlabValue}
-                validation={true}
-                id="thickness"
-                validationMethod={validateNumber}
-              />
-              <InputField 
-                label="Slab Price"
-                item={slab}
-                property={'priceSlab'}
-                dispatch={dispatch}
-                stateMethod={changeSlabValue}
-                validation={true}
-                id="priceSlab"
+                id="price"
                 validationMethod={validatePrice}
-              />
-              <InputField 
-                label="Price per sqft"
-                item={slab}
-                property={'priceSqft'}
-                dispatch={dispatch}
-                stateMethod={changeSlabValue}
-                validation={true}
-                id="priceSqft"
-                validationMethod={validatePrice}
-              />
-              <InputField 
-                label="Block"
-                item={slab}
-                property={'block'}
-                dispatch={dispatch}
-                stateMethod={changeSlabValue}
-                validation={true}
-                id="block"
-                validationMethod={validateNumber}
-              />
-              <InputField 
-                label="Lot Number"
-                item={slab}
-                property={'lotNumber'}
-                dispatch={dispatch}
-                stateMethod={changeSlabValue}
-                validation={true}
-                id="lotNumber"
-                validationMethod={validateNumber}
               />
               <GenerateQRCode
-                item={slab}
+                item={product}
                 dispatch={dispatch}
-                stateMethod={changeSlabValue}
+                stateMethod={changeProductValue}
                 setMessage={setMessage}
-                type={'slabQRCode'}
+                type={'productQRCode'}
               >
               </GenerateQRCode>
               <UploadButton
@@ -475,10 +369,10 @@ const NewSlab = ({
                 label={'Upload Images'}
                 formType={'file'}
                 id="imageFiles"
-                item={slab}
+                item={product}
                 property={'images'}
                 dispatch={dispatch}
-                stateMethod={changeSlabImages}
+                stateMethod={changeProductImages}
                 setMessage={setMessage}
                 setImages={setImages}
                 images={images}
@@ -512,7 +406,7 @@ const NewSlab = ({
                     className="absolute top-3 right-3 w-[30px] h-[30px] rounded-[50%] flex justify-center items-center hover:cursor-pointer"
                     onClick={(e) => (e.stopPropagation(), images[idx].url ? deleteImage(item.url) : setImages(removeItemByIndex(idx, images))) }
                   >
-                  { loading == `deleteSlabImage-${item.url}` 
+                  { loading == `deleteProductImage-${item.url}` 
                     ? 
                     <div className="loading border-r-gold after:border-r-gold before:border-l-gold mr-3"></div>
                     :
@@ -534,4 +428,4 @@ const NewSlab = ({
   )
 }
 
-export default NewSlab
+export default NewProduct

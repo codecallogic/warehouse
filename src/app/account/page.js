@@ -10,14 +10,17 @@ import { useRouter } from 'next/navigation';
 import TopNav from "../_components/_account/topNav"
 import Dashboard from '../_components/_account/dashboard'
 import NewSlab from "../_components/_forms/slab"
+import NewProduct from "../_components/_forms/product"
 import SideNav from '../_components/_account/sideNav'
 import Slabs from '../_components/_account/slabs'
+import Products from '../_components/_account/products'
 
 //// REDUCERS
 import { useDispatch, useSelector } from "react-redux";
 import { login, logout } from "@/app/_redux/features/authSlice";
 import { changeView, changePopup, changeEdit } from "@/app/_redux/features/navigationSlice";
 import { changeSlabArray, changeSlabValue, changeSlabImages, editSlab, resetSlab } from "@/app/_redux/features/slabSlice";
+import { changeProductArray, changeProductValue, changeProductImages, editProduct, resetProduct } from "@/app/_redux/features/productSlice";
 
 ///// QUERIES
 import GET_USER from '@/app/_queries/fetchUser'
@@ -26,43 +29,66 @@ import GET_COLORS from '@/app/_queries/fetchColors'
 import GET_SUPPLIERS from '@/app/_queries/fetchSuppliers'
 import GET_LOCATIONS from '@/app/_queries/fetchLocations'
 import GET_SLABS from '@/app/_queries/fetchSlabs'
+import GET_BRANDS from '@/app/_queries/fetchBrands'
+import GET_CATEGORIES from '@/app/_queries/fetchCategories'
+import GET_MODELS from '@/app/_queries/fetchModels'
+import GET_PRODUCTS from '@/app/_queries/fetchProducts'
 
 ///// MUTATIONS
 import NEW_SLAB from '@/app/_mutations/newSlab'
 import UPDATE_SLAB from '@/app/_mutations/updateSlab'
 import DELETE_SLAB_IMAGE from '@/app/_mutations/deleteSlabImage'
+import DELETE_SLAB from '@/app/_mutations/deleteSlab'
+import NEW_PRODUCT from '@/app/_mutations/newProduct'
+import UPDATE_PRODUCT from '@/app/_mutations/updateProduct'
+import DELETE_PRODUCT_IMAGE from '@/app/_mutations/deleteProductImage'
+import DELETE_PRODUCT from '@/app/_mutations/deleteProduct'
 
 const Account = ({}) => {
   
-  const dispatch                        = useDispatch()
-  const router                          = useRouter();
-  const [loadingData, setLoadingData]   = useState(true)
-  const [user, setUser]                 = useState('')
-  const [view, setView]                 = useState('')
-  const [popup, setPopup]               = useState('')
-  const [edit, setEdit]                 = useState('')
-  const [slab, setSlab]                 = useState('')
-  const [slabs, setSlabs]               = useState([])
-  const currentNavigation               = useSelector((state) => state.navigationReducer);
-  const currentSlab                     = useSelector((state) => state.slabReducer)
-  const [cookies, setCookie, removeCookie] = useCookies(['token', 'user', 'view']);
+  const dispatch                              = useDispatch()
+  const router                                = useRouter();
+  const [loadingData, setLoadingData]         = useState(true)
+  const [user, setUser]                       = useState('')
+  const [view, setView]                       = useState('')
+  const [popup, setPopup]                     = useState('')
+  const [edit, setEdit]                       = useState('')
+  const [slab, setSlab]                       = useState('')
+  const [slabs, setSlabs]                     = useState([])
+  const [product, setProduct]                 = useState('')
+  const [products, setProducts]               = useState([])
+  const currentNavigation                     = useSelector((state) => state.navigationReducer);
+  const currentSlab                           = useSelector((state) => state.slabReducer)
+  const currentProduct                        = useSelector((state) => state.productReducer)
+  const [cookies, setCookie, removeCookie]    = useCookies(['token', 'user', 'view']);
   
   //// QUERIES
-  const dataUser                 = useQuery(GET_USER, { variables: { id: cookies.user ? cookies.user.id : 'unknown', token: cookies.token ? cookies.token : 'unknown'}})
-  const dataMaterials            = useQuery(GET_MATERIALS, { variables: { id: '109JF0SA9DUFJ0J3', token: 'DIFJAOSDIJFOSDIJFI'}})
-  const dataColors               = useQuery(GET_COLORS, { variables: { id: '109JF0SA9DUFJ0J3', token: 'DIFJAOSDIJFOSDIJFI'}})
-  const dataSuppliers            = useQuery(GET_SUPPLIERS, { variables: { id: '109JF0SA9DUFJ0J3', token: 'DIFJAOSDIJFOSDIJFI'}})
-  const dataLocations            = useQuery(GET_LOCATIONS, { variables: { id: '109JF0SA9DUFJ0J3', token: 'DIFJAOSDIJFOSDIJFI'}})
-  const dataSlabs                = useQuery(GET_SLABS, { variables: { id: '109JF0SA9DUFJ0J3', token: 'DIFJAOSDIJFOSDIJFI'}})
+  const dataUser                              = useQuery(GET_USER, { variables: { id: cookies.user ? cookies.user.id : 'unknown', token: cookies.token ? cookies.token : 'unknown'}})
+  const dataMaterials                         = useQuery(GET_MATERIALS, { variables: { id: '109JF0SA9DUFJ0J3', token: 'DIFJAOSDIJFOSDIJFI'}})
+  const dataColors                            = useQuery(GET_COLORS, { variables: { id: '109JF0SA9DUFJ0J3', token: 'DIFJAOSDIJFOSDIJFI'}})
+  const dataSuppliers                         = useQuery(GET_SUPPLIERS, { variables: { id: '109JF0SA9DUFJ0J3', token: 'DIFJAOSDIJFOSDIJFI'}})
+  const dataLocations                         = useQuery(GET_LOCATIONS, { variables: { id: '109JF0SA9DUFJ0J3', token: 'DIFJAOSDIJFOSDIJFI'}})
+  const dataSlabs                             = useQuery(GET_SLABS, { variables: { id: '109JF0SA9DUFJ0J3', token: 'DIFJAOSDIJFOSDIJFI'}})
+  const dataBrands                            = useQuery(GET_BRANDS, { variables: { id: '109JF0SA9DUFJ0J3', token: 'DIFJAOSDIJFOSDIJFI'}})
+  const dataCategories                        = useQuery(GET_CATEGORIES, { variables: { id: '109JF0SA9DUFJ0J3', token: 'DIFJAOSDIJFOSDIJFI'}})
+  const dataModels                            = useQuery(GET_MODELS, { variables: { id: '109JF0SA9DUFJ0J3', token: 'DIFJAOSDIJFOSDIJFI'}})
+  const dataProducts                          = useQuery(GET_PRODUCTS, { variables: { id: '109JF0SA9DUFJ0J3', token: 'DIFJAOSDIJFOSDIJFI'}})
 
   //// REFETCH
-  const { refetch: refetchSlabs  }              = useQuery(GET_SLABS, { variables: { id: cookies.user ? cookies.user.id : 'unknown', token: cookies.token ? cookies.token : 'unknown' } })
-
+  const { refetch: refetchSlabs  }            = useQuery(GET_SLABS, { variables: { id: cookies.user ? cookies.user.id : 'unknown', token: cookies.token ? cookies.token : 'unknown' } })
+  const { refetch: refetchProducts  }            = useQuery(GET_PRODUCTS, { variables: { id: cookies.user ? cookies.user.id : 'unknown', token: cookies.token ? cookies.token : 'unknown' } })
 
   //// MUTATIONS
   const [newSlab, { dataNewSlab, loadingNewSlab, errorNewSlab }] = useMutation(NEW_SLAB, { refetchQueries: [ GET_SLABS ]})
   const [updateSlab, { dataUpdateSlab, loadingUpdateSlab, errorUpdateSlab}] = useMutation(UPDATE_SLAB, { refetchQueries: [ GET_SLABS ]})
-  const [deleteSlabImage, { dataDeleteSlab, loadingDeleteSlab, errorDeleteSlab}] = useMutation(DELETE_SLAB_IMAGE, { refetchQueries: [ GET_SLABS ]})
+  const [deleteSlabImage, { dataDeleteSlabImage, loadingDeleteSlabImage, errorDeleteSlabImage}] = useMutation(DELETE_SLAB_IMAGE, { refetchQueries: [ GET_SLABS ]})
+  const [deleteSlab, { dataDeleteSlab, loadingDeleteSlab, errorDeleteSlab}] = useMutation(DELETE_SLAB, { refetchQueries: [ GET_SLABS ]})
+
+  const [newProduct, { dataNewProduct, loadingNewProduct, errorNewProduct }] = useMutation(NEW_PRODUCT, { refetchQueries: [ GET_PRODUCTS ]})
+  const [updateProduct, { dataUpdateProduct, loadingUpdateProduct, errorUpdateProduct}] = useMutation(UPDATE_PRODUCT, { refetchQueries: [ GET_PRODUCTS ]})
+  const [deleteProductImage, { dataDeleteProductImage, loadingDeleteProductImage, errorDeleteProductImage}] = useMutation(DELETE_PRODUCT_IMAGE, { refetchQueries: [ GET_PRODUCTS ]})
+  const [deleteProduct, { dataDeleteProduct, loadingDeleteProduct, errorDeleteProduct}] = useMutation(DELETE_PRODUCT, { refetchQueries: [ GET_PRODUCTS ]})
+
   
   useEffect(() => {
 
@@ -93,9 +119,16 @@ const Account = ({}) => {
   }, [currentSlab])
 
   useEffect(() => {
+    setProduct(currentProduct.value)
+  }, [currentProduct])
+
+  useEffect(() => {
     if(dataSlabs.data) setSlabs(dataSlabs.data.allSlabs)
   }, [dataSlabs])
 
+  useEffect(() => {
+    if(dataProducts.data) setProducts(dataProducts.data.allProducts)
+  }, [dataProducts])
 
   if(!user) return <div className="ring">Loading</div>
   
@@ -124,6 +157,9 @@ const Account = ({}) => {
             changePopup={changePopup}
             changeEdit={changeEdit}
             resetSlab={resetSlab}
+            resetProduct={resetProduct}
+            slabs={slabs}
+            products={products}
           />
         }
         { view == 'slabs' &&
@@ -134,6 +170,20 @@ const Account = ({}) => {
             changeEdit={changeEdit}
             slabs={slabs}
             editSlab={editSlab}
+            deleteSlab={deleteSlab}
+            refetch={refetchSlabs}
+          />
+        }
+        { view == 'products' &&
+          <Products
+            dispatch={dispatch}
+            changeView={changeView}
+            changePopup={changePopup}
+            changeEdit={changeEdit}
+            products={products}
+            editProduct={editProduct}
+            deleteProduct={deleteProduct}
+            refetch={refetchProducts}
           />
         }
       </div>
@@ -157,6 +207,29 @@ const Account = ({}) => {
           updateSlab={updateSlab}
           refetch={refetchSlabs}
           deleteSlabImage={deleteSlabImage}
+        />
+      }
+      { popup == 'newProduct' && 
+        <NewProduct 
+          dispatch={dispatch}
+          changePopup={changePopup}
+          changeEdit={changeEdit}
+          brands={dataBrands.data && dataBrands.data.allBrands}
+          models={dataModels.data && dataModels.data.allModels}
+          categories={dataCategories.data && dataCategories.data.allCategories}
+          colors={dataColors.data && dataColors.data.allColors}
+          locations={dataLocations.data && dataLocations.data.allLocations}
+          changeProductArray={changeProductArray}
+          changeProductValue={changeProductValue}
+          changeProductImages={changeProductImages}
+          product={product}
+          newProduct={newProduct}
+          resetProduct={resetProduct}
+          changeView={changeView}
+          edit={edit}
+          updateProduct={updateProduct}
+          refetch={refetchProducts}
+          deleteProductImage={deleteProductImage}
         />
       }
     </>
