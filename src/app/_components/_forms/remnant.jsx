@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { useS3Upload } from "next-s3-upload"
 
 //// HELPERS
-import { validateNumber, validatePrice } from '@/app/_helpers/validations'
+import { validateNumber, validateSize } from '@/app/_helpers/validations'
 import { removeItemByIndex } from '@/app/_helpers/forms'
 
 //// COMPONENTS
@@ -18,25 +18,22 @@ import Button from '../button'
 ///// HELPERS
 import { checkObjectValues } from '@/app/_helpers/validations'
 
-const NewProduct = ({
+const NewRemnant = ({
   dispatch,
   changePopup,
-  brands,
-  models,
-  categories,
+  materials,
   colors,
-  locations,
-  changeProductArray,
-  changeProductValue,
-  changeProductImages,
-  product,
-  newProduct,
-  resetProduct,
+  changeRemnantArray,
+  changeRemnantValue,
+  changeRemnantImages,
+  remnant,
+  newRemnant,
+  resetRemnant,
   changeView,
   edit,
-  updateProduct,
+  updateRemnant,
   refetch,
-  deleteProductImage
+  deleteRemnantImage
 }) => {
   
   const [dropdown, setDropdown] = useState('')
@@ -45,12 +42,12 @@ const NewProduct = ({
   const [images, setImages] = useState([])
   const { FileInput, openFileDialog, uploadToS3 } = useS3Upload();
 
-  const submitNewProduct = async () => {
+  const submitNewRemnant = async () => {
     
     try {
 
       let array = []
-      setLoading('createProduct')
+      setLoading('createRemnant')
       
       if(images){
         const updatedPromises = await Promise.all(images.map(async (item, idx) => {
@@ -65,24 +62,29 @@ const NewProduct = ({
 
       setImages(array)
       
-      const response = await newProduct({
+      const response = await newRemnant({
         variables: {
-          brand: product.brand,
-          model: product.model,
-          category: product.category,
-          color: product.color,
-          location: product.location,
-          quantity: product.quantity,
-          description: product.description,
-          price: product.price,
-          qrCode: product.qrCode,
+          material: remnant.material,
+          color: remnant.color,
+          name: remnant.name,
+          shape: remnant.shape,
+          l1: remnant.l1,
+          w1: remnant.w1,
+          l2: remnant.l2,
+          w2: remnant.w2,
+          notes: remnant.notes,
+          lot: remnant.lot,
+          bundle: remnant.bundle,
+          supplierRef: remnant.supplierRef,
+          bin: remnant.bin,
+          qrCode: remnant.qrCode,
           images: array
         }
       })
 
       setLoading('')
-      dispatch(resetProduct())
-      setMessage(response.data.newProduct.message)
+      dispatch(resetRemnant())
+      setMessage(response.data.newRemnant.message)
       setImages([])
       
     } catch (error) {
@@ -93,12 +95,12 @@ const NewProduct = ({
     
   }
 
-  const submitUpdateProduct = async () => {
-
+  const submitUpdateRemnant = async () => {
+    
     try {
 
       let array = []
-      setLoading('updateProduct')
+      setLoading('updateRemnant')
       
       if(images){
 
@@ -115,25 +117,30 @@ const NewProduct = ({
 
       setImages(array)
 
-      const response = await updateProduct({
+      const response = await updateRemnant({
         variables: {
-          id: product.id,
-          brand: product.brand,
-          model: product.model,
-          category: product.category,
-          color: product.color,
-          location: product.location,
-          quantity: product.quantity,
-          description: product.description,
-          price: product.price,
-          qrCode: product.qrCode,
+          id: remnant.id,
+          material: remnant.material,
+          color: remnant.color,
+          name: remnant.name,
+          shape: remnant.shape,
+          l1: remnant.l1,
+          w1: remnant.w1,
+          l2: remnant.l2,
+          w2: remnant.w2,
+          notes: remnant.notes,
+          lot: remnant.lot,
+          bundle: remnant.bundle,
+          supplierRef: remnant.supplierRef,
+          bin: remnant.bin,
+          qrCode: remnant.qrCode,
           images: array
         }
       })
 
       refetch()
       setLoading('')
-      setMessage(response.data.updateProduct.message)
+      setMessage(response.data.updateRemnant.message)
       
     } catch (error) {
       console.log(error)
@@ -144,13 +151,13 @@ const NewProduct = ({
 
   const deleteImage = async (url) => {
 
-    setLoading(`deleteProductImage-${url}`)
+    setLoading(`deleteRemnantImage-${url}`)
 
     try {
 
-      const response = await deleteProductImage({
+      const response = await deleteRemnantImage({
         variables: {
-          id: product.id,
+          id: remnant.id,
           images: images,
           url: url
         }
@@ -161,7 +168,7 @@ const NewProduct = ({
       refetch()
       setLoading('')
       setImages(newArray)
-      setMessage(response.data.deleteProductImage.message)
+      setMessage(response.data.deleteRemnantImage.message)
       
     } catch (error) {
       console.log(error)
@@ -171,8 +178,8 @@ const NewProduct = ({
   }
 
   useEffect(() => {
-    if(product) setImages(product.images)
-  }, [product])    
+    if(remnant) setImages(remnant.images)
+  }, [remnant])    
   
   return (
     <div id="default-modal" tabIndex="-1" aria-hidden="true" className="overflow-x-hidden fixed top-0 right-0 left-0 z-50 flex bg-[rgba(0, 0, 0, 0.5)] justify-center items-center w-full md:inset-0 h-[calc(100%)] max-h-full bg-black/50">
@@ -180,12 +187,12 @@ const NewProduct = ({
           <div className="relative bg-white rounded-xl shadow-xl dark:bg-gray-700">
             <div className="flex items-center justify-between pt-5 pb-3 px-5 rounded-lg dark:border-gray-600 h-[50px]">
                 <h3 className="flex flex-col">
-                  <span className="font-poppins text-[24px] font-[900] text-gray-900 dark:text-white">{edit ? 'Update Product' : 'Create Product'}</span>
+                  <span className="font-poppins text-[24px] font-[900] text-gray-900 dark:text-white">{edit ? 'Update Remnant' : 'Create Remnant'}</span>
                 </h3>
-                {product && checkObjectValues(product, images) && !edit &&
+                {remnant && checkObjectValues(remnant, images) && !edit &&
                   <div 
                     className="w-min flex justify-center ml-3"
-                    onClick={() => submitNewProduct()}
+                    onClick={() => submitNewRemnant()}
                   >
                     <Button 
                       label='Save'
@@ -198,7 +205,7 @@ const NewProduct = ({
                       borderColor={'black'}
                       borderRadius={true}
                       loading={loading}
-                      loadingType={'createProduct'}
+                      loadingType={'createRemnant'}
                       showSVG={false}
                       svg={'arrowRight'}
                       svgColor={'white'}
@@ -206,10 +213,10 @@ const NewProduct = ({
                     />
                   </div>
                 }
-                {product && checkObjectValues(product, images) && edit == 'product' &&
+                {remnant && checkObjectValues(remnant, images) && edit == 'remnant' &&
                   <div 
                     className="w-min flex justify-center ml-3"
-                    onClick={() => submitUpdateProduct()}
+                    onClick={() => submitUpdateRemnant()}
                   >
                     <Button 
                       label='Update'
@@ -222,7 +229,7 @@ const NewProduct = ({
                       borderColor={'black'}
                       borderRadius={true}
                       loading={loading}
-                      loadingType={'updateProduct'}
+                      loadingType={'updateRemnant'}
                       showSVG={false}
                       svg={'arrowRight'}
                       svgColor={'white'}
@@ -248,7 +255,7 @@ const NewProduct = ({
                 <h3 className="flex flex-col">
                   <span 
                     className="font-poppins text-[16px] font-[400] text-gold underline dark:text-white hover:cursor-pointer"
-                    onClick={() => (dispatch(changeView('products'), dispatch(changePopup(''))))}
+                    onClick={() => (dispatch(changeView('remnants'), dispatch(changePopup(''))))}
                   >
                     view all
                   </span>
@@ -256,47 +263,21 @@ const NewProduct = ({
             </div>
             <div className="p-4 md:p-5 space-y-4 h-[40rem] overflow-y-scroll">
               <InputDropdownField 
-                label="brands"
-                item={product}
-                property={'brand'}
+                label="material"
+                item={remnant}
+                property={'material'}
                 index={0}
                 value={'name'}
                 dropdown={dropdown}
                 setDropdown={setDropdown}
-                dropdownType={'brands'}
-                list={brands}
+                dropdownType={'materials'}
+                list={materials}
                 dispatch={dispatch}
-                stateMethod={changeProductArray}
-              />
-              <InputDropdownField 
-                label="models"
-                item={product}
-                property={'model'}
-                index={0}
-                value={'name'}
-                dropdown={dropdown}
-                setDropdown={setDropdown}
-                dropdownType={'models'}
-                list={models}
-                dispatch={dispatch}
-                stateMethod={changeProductArray}
-              />
-              <InputDropdownField 
-                label="categories"
-                item={product}
-                property={'category'}
-                index={0}
-                value={'name'}
-                dropdown={dropdown}
-                setDropdown={setDropdown}
-                dropdownType={'categories'}
-                list={categories}
-                dispatch={dispatch}
-                stateMethod={changeProductArray}
+                stateMethod={changeRemnantArray}
               />
               <InputDropdownField 
                 label="color"
-                item={product}
+                item={remnant}
                 property={'color'}
                 index={0}
                 value={'name'}
@@ -305,55 +286,114 @@ const NewProduct = ({
                 dropdownType={'colors'}
                 list={colors}
                 dispatch={dispatch}
-                stateMethod={changeProductArray}
-              />
-              <InputDropdownField 
-                label="location"
-                item={product}
-                property={'location'}
-                index={0}
-                value={'name'}
-                dropdown={dropdown}
-                setDropdown={setDropdown}
-                dropdownType={'locations'}
-                list={locations}
-                dispatch={dispatch}
-                stateMethod={changeProductArray}
+                stateMethod={changeRemnantArray}
               />
               <InputField 
-                label="quantity"
-                item={product}
-                property={'quantity'}
+                label="name"
+                item={remnant}
+                property={'name'}
                 dispatch={dispatch}
-                stateMethod={changeProductValue}
+                stateMethod={changeRemnantValue}
+                id="name"
+              />
+              <InputField 
+                label="shape"
+                item={remnant}
+                property={'shape'}
+                dispatch={dispatch}
+                stateMethod={changeRemnantValue}
+                id="shape"
+              />
+              <InputField 
+                label="l1"
+                item={remnant}
+                property={'l1'}
+                dispatch={dispatch}
+                stateMethod={changeRemnantValue}
                 validation={true}
-                id="quantity"
+                id="l1"
+                validationMethod={validateSize}
+              />
+              <InputField 
+                label="w1"
+                item={remnant}
+                property={'w1'}
+                dispatch={dispatch}
+                stateMethod={changeRemnantValue}
+                validation={true}
+                id="w1"
+                validationMethod={validateSize}
+              />
+              <InputField 
+                label="w2"
+                item={remnant}
+                property={'w2'}
+                dispatch={dispatch}
+                stateMethod={changeRemnantValue}
+                validation={true}
+                id="w2"
+                validationMethod={validateSize}
+              />
+              <InputField 
+                label="l2"
+                item={remnant}
+                property={'l2'}
+                dispatch={dispatch}
+                stateMethod={changeRemnantValue}
+                validation={true}
+                id="l2"
+                validationMethod={validateSize}
+              />
+              <InputField 
+                label="notes"
+                item={remnant}
+                property={'notes'}
+                dispatch={dispatch}
+                stateMethod={changeRemnantValue}
+                id="notes"
+              />
+              <InputField 
+                label="lot"
+                item={remnant}
+                property={'lot'}
+                dispatch={dispatch}
+                stateMethod={changeRemnantValue}
+                validation={true}
+                id="lot"
                 validationMethod={validateNumber}
               />
               <InputField 
-                label="description"
-                item={product}
-                property={'description'}
+                label="bundle"
+                item={remnant}
+                property={'bundle'}
                 dispatch={dispatch}
-                stateMethod={changeProductValue}
-                id="description"
+                stateMethod={changeRemnantValue}
+                id="bundle"
               />
               <InputField 
-                label="Product Price"
-                item={product}
-                property={'price'}
+                label="supplierRef"
+                item={remnant}
+                property={'supplierRef'}
                 dispatch={dispatch}
-                stateMethod={changeProductValue}
+                stateMethod={changeRemnantValue}
+                id="supplierRef"
+              />
+              <InputField 
+                label="bin"
+                item={remnant}
+                property={'bin'}
+                dispatch={dispatch}
+                stateMethod={changeRemnantValue}
                 validation={true}
-                id="price"
-                validationMethod={validatePrice}
+                id="bin"
+                validationMethod={validateNumber}
               />
               <GenerateQRCode
-                item={product}
+                item={remnant}
                 dispatch={dispatch}
-                stateMethod={changeProductValue}
+                stateMethod={changeRemnantValue}
                 setMessage={setMessage}
-                type={'productQRCode'}
+                type={'remnantQRCode'}
               >
               </GenerateQRCode>
               <UploadButton
@@ -365,10 +405,10 @@ const NewProduct = ({
                 label={'Upload Images'}
                 formType={'file'}
                 id="imageFiles"
-                item={product}
+                item={remnant}
                 property={'images'}
                 dispatch={dispatch}
-                stateMethod={changeProductImages}
+                stateMethod={changeRemnantImages}
                 setMessage={setMessage}
                 setImages={setImages}
                 images={images}
@@ -402,7 +442,7 @@ const NewProduct = ({
                     className="absolute top-3 right-3 w-[30px] h-[30px] rounded-[50%] flex justify-center items-center hover:cursor-pointer"
                     onClick={(e) => (e.stopPropagation(), images[idx].url ? deleteImage(item.url) : setImages(removeItemByIndex(idx, images))) }
                   >
-                  { loading == `deleteProductImage-${item.url}` 
+                  { loading == `deleteRemnantImage-${item.url}` 
                     ? 
                     <div className="loading border-r-gold after:border-r-gold before:border-l-gold mr-3"></div>
                     :
@@ -424,4 +464,4 @@ const NewProduct = ({
   )
 }
 
-export default NewProduct
+export default NewRemnant

@@ -15,7 +15,7 @@ const Nav = ({
   return (
     <div
       id="mobile-menu"
-      className="hidden absolute left-0 top-0 z-20 w-[345px] bg-white h-[100%] shadow-lg dark:bg-darkSchemeOne"
+      className="hidden absolute left-0 top-0 z-20 w-[345px] bg-white h-screen shadow-lg dark:bg-darkSchemeOne"
     >
       <div className="w-full flex flex-col items-center relative">
         <div
@@ -66,6 +66,19 @@ const Nav = ({
             >
             </SVG>
             <span className='text-[18px] font-[700] leading-[30px]'>Slabs</span>
+          </div>
+          <div
+            className={`w-[303px] px-[50px] mt-[12px] h-[60px] flex items-center gap-x-[30px] hover:cursor-pointer ` + ( view == 'products' ? 'text-gold border-l-[9px] border-gold tab bg-goldShadeOne rounded-br-[150px] rounded-tr-[20px]' : ' text-black ' )}
+            onClick={() => dispatch(changeView('products'))}
+          >
+            <SVG
+              svg={'product'}
+              width={24}
+              height={24}
+              schemeOne={'#B78514'}
+            >
+            </SVG>
+            <span className='text-[18px] font-[700] leading-[30px]'>Products</span>
           </div>
         </div>
       </div>

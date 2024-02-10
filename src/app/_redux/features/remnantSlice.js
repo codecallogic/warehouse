@@ -2,24 +2,29 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState = {
   value: {
-    brand: [],
-    model: [],
-    category: [],
+    material: [],
     color: [],
-    location: [],
-    quantity: '',
+    name: '',
+    shape: '',
+    l1: '',
+    w1: '',
+    l2: '',
+    w2: '',
+    notes: '',
+    lot: '',
+    bundle: '',
+    supplierRef: '',
+    bin: '',
     qrCode: '',
-    description: '',
-    price: '',
     images: [],
   }
 }
 
-export const product = createSlice({
-  name: 'product',
+export const remnant = createSlice({
+  name: 'remnant',
   initialState,
   reducers: {
-    changeProductArray: (state, action) => {
+    changeRemnantArray: (state, action) => {
 
       const { item, type } = action.payload;
       
@@ -34,7 +39,7 @@ export const product = createSlice({
         }
       }
     },
-    changeProductValue: (state, action) => {
+    changeRemnantValue: (state, action) => {
       
       const { value, type } = action.payload;
       
@@ -46,7 +51,7 @@ export const product = createSlice({
         }
       }
     },
-    changeProductImages: (state, action) => {
+    changeRemnantImages: (state, action) => {
 
       const { item, type } = action.payload;
       
@@ -58,22 +63,22 @@ export const product = createSlice({
         }
       }
     },
-    editProduct: (state, action) => {
+    editRemnant: (state, action) => {
 
       const { id, items } = action.payload;
 
-      let foundProduct         = items.find(product => product.id === id)
+      let foundRemnant         = items.find(remnant => remnant.id === id)
 
       return {
         ...state,
         value: {
           ...state.value,
-          ...foundProduct
+          ...foundRemnant
         }
       }
       
     },
-    resetProduct: () => {
+    resetRemnant: () => {
       return {
         ...initialState
       }
@@ -81,5 +86,5 @@ export const product = createSlice({
   }
 })
 
-export const { changeProductArray, changeProductValue, changeProductImages, editProduct, resetProduct } = product.actions
-export default product.reducer
+export const { changeRemnantArray, changeRemnantValue, changeRemnantImages, editRemnant, resetRemnant } = remnant.actions
+export default remnant.reducer

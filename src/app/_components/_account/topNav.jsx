@@ -9,9 +9,10 @@ const TopNav = ({
   dispatch,
   changeView,
   logout,
-  router
+  router,
+  user
 }) => {
-  
+
   const [menu, setMenu] = useState(false)
   
   return (
@@ -142,7 +143,7 @@ const TopNav = ({
         onMouseEnter={() => setMenu(true)}
         onClick={() => menu ? setMenu(false) : setMenu(true)}
       >
-        <div className="text-[18px] font-[500] mr-[17px] text-white">EN</div>
+        <div className="text-[18px] font-[500] mr-[17px] text-white">{user.firstName ? user.firstName[0] : 'A'} {user.lastName ? user.lastName[0] : 'B'} </div>
         <SVG
           svg={"arrowDown"}
           width={24}

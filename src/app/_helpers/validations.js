@@ -56,3 +56,13 @@ export const checkObjectValues = (data, other) => {
 
   return true
 }
+
+export const validateSize = (type, e) => {
+  const input = document.getElementById(type)
+  const regex = /[^0-9|\n\r]/g
+
+  if(e.target.value == ''){ return '' }
+  
+  return input.value = input.value.split(regex).join('') + ' in'
+  
+}

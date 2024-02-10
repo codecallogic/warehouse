@@ -4,6 +4,7 @@ import QRCode from 'qrcode'
 const formFields = {
   slabQRCode: ['material', 'sizeOne', 'sizeTwo', 'lotNumber'],
   productQRCode: ['brand', 'model', 'category', 'price'],
+  remnantQRCode: ['name', 'material', 'l1', 'w1', 'l2', 'w2']
 }
 
 export const changeInputType = (id, fromType, toType) => {
