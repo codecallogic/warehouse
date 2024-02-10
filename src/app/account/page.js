@@ -20,6 +20,12 @@ import NewMaterial from '../_components/_forms/material'
 import Materials from '../_components/_account/materials'
 import Colors from '../_components/_account/colors'
 import NewColor from '../_components/_forms/color'
+import Locations from '../_components/_account/locations'
+import NewLocation from '../_components/_forms/location'
+import Brands from '../_components/_account/brands'
+import NewBrond from '../_components/_forms/brand'
+import Categories from '../_components/_account/categories'
+import NewCategory from '../_components/_forms/category'
 
 //// REDUCERS
 import { useDispatch, useSelector } from "react-redux";
@@ -30,6 +36,9 @@ import { changeProductArray, changeProductValue, changeProductImages, editProduc
 import { changeRemnantArray, changeRemnantValue, changeRemnantImages, editRemnant, resetRemnant } from "../_redux/features/remnantSlice";
 import { changeMaterialValue, editMaterial, resetMaterial } from "../_redux/features/materialSlice";
 import { changeColorValue, editColor, resetColor } from "../_redux/features/colorSlice";
+import { changeLocationValue, editLocation, resetLocation } from "../_redux/features/locationSlice";
+import { changeBrandValue, editBrand, resetBrand } from "../_redux/features/brandSlice";
+import { changeCategoryValue, editCategory, resetCategory } from "../_redux/features/categorySlice";
 
 ///// QUERIES
 import GET_USER from '@/app/_queries/fetchUser'
@@ -63,6 +72,15 @@ import DELETE_MATERIAL from '@/app/_mutations/deleteMaterial'
 import NEW_COLOR from '@/app/_mutations/newColor'
 import UPDATE_COLOR from '@/app/_mutations/updateColor'
 import DELETE_COLOR from '@/app/_mutations/deleteColor'
+import NEW_LOCATION from '@/app/_mutations/newLocation'
+import UPDATE_LOCATION from '@/app/_mutations/updateLocation'
+import DELETE_LOCATION from '@/app/_mutations/deleteLocation'
+import NEW_BRAND from '@/app/_mutations/newBrand'
+import UPDATE_BRAND from '@/app/_mutations/updateBrand'
+import DELETE_BRAND from '@/app/_mutations/deleteBrand'
+import NEW_CATEGORY from '@/app/_mutations/newCategory'
+import UPDATE_CATEGORY from '@/app/_mutations/updateCategory'
+import DELETE_CATEGORY from '@/app/_mutations/deleteCategory'
 
 const Account = ({}) => {
   
@@ -83,12 +101,21 @@ const Account = ({}) => {
   const [materials, setMaterials]             = useState([])
   const [color, setColor]                     = useState('')
   const [colors, setColors]                   = useState([])
+  const [location, setLocation]               = useState('')
+  const [locations, setLocations]             = useState([])
+  const [brand, setBrand]                     = useState('')
+  const [brands, setBrands]                   = useState([])
+  const [category, setCategory]               = useState('')
+  const [categories, setCategories]           = useState([])
   const currentNavigation                     = useSelector((state) => state.navigationReducer);
   const currentSlab                           = useSelector((state) => state.slabReducer)
   const currentProduct                        = useSelector((state) => state.productReducer)
   const currentRemnant                        = useSelector((state) => state.remnantReducer)
   const currentMaterial                       = useSelector((state) => state.materialReducer)
   const currentColor                          = useSelector((state) => state.colorReducer)
+  const currentLocation                       = useSelector((state) => state.locationReducer)
+  const currentBrand                          = useSelector((state) => state.brandReducer)
+  const currentCategory                       = useSelector((state) => state.categoryReducer )
   const [cookies, setCookie, removeCookie]    = useCookies(['token', 'user', 'view']);
   
   //// QUERIES
@@ -110,6 +137,9 @@ const Account = ({}) => {
   const { refetch: refetchRemnants  }         = useQuery(GET_REMNANTS, { variables: { id: cookies.user ? cookies.user.id : 'unknown', token: cookies.token ? cookies.token : 'unknown' } })
   const { refetch: refetchMaterials  }        = useQuery(GET_MATERIALS, { variables: { id: cookies.user ? cookies.user.id : 'unknown', token: cookies.token ? cookies.token : 'unknown' } })
   const { refetch: refetchColors  }           = useQuery(GET_COLORS, { variables: { id: cookies.user ? cookies.user.id : 'unknown', token: cookies.token ? cookies.token : 'unknown' } })
+  const { refetch: refetchLocations  }        = useQuery(GET_LOCATIONS, { variables: { id: cookies.user ? cookies.user.id : 'unknown', token: cookies.token ? cookies.token : 'unknown' } })
+  const { refetch: refetchBrands  }           = useQuery(GET_BRANDS, { variables: { id: cookies.user ? cookies.user.id : 'unknown', token: cookies.token ? cookies.token : 'unknown' } })
+  const { refetch: refetchCategories  }       = useQuery(GET_CATEGORIES, { variables: { id: cookies.user ? cookies.user.id : 'unknown', token: cookies.token ? cookies.token : 'unknown' } })
 
   //// MUTATIONS
   const [newSlab, { dataNewSlab, loadingNewSlab, errorNewSlab }] = useMutation(NEW_SLAB, { refetchQueries: [ GET_SLABS ]})
@@ -134,6 +164,18 @@ const Account = ({}) => {
   const [newColor, { dataNewColor, loadingNewColor, errorNewColor }] = useMutation(NEW_COLOR, { refetchQueries: [ GET_COLORS ]})
   const [updateColor, { dataUpdateColor, loadingUpdateColor, errorUpdateColor}] = useMutation(UPDATE_COLOR, { refetchQueries: [ GET_COLORS ]})
   const [deleteColor, { dataDeleteColor, loadingDeleteColor, errorDeleteColor}] = useMutation(DELETE_COLOR, { refetchQueries: [ GET_COLORS ]})
+
+  const [newLocation, { dataNewLocation, loadingNewLocation, errorNewLocation }] = useMutation(NEW_LOCATION, { refetchQueries: [ GET_LOCATIONS ]})
+  const [updateLocation, { dataUpdateLocation, loadingUpdateLocation, errorUpdateLocation}] = useMutation(UPDATE_LOCATION, { refetchQueries: [ GET_LOCATIONS ]})
+  const [deleteLocation, { dataDeleteLocation, loadingDeleteLocation, errorDeleteLocation}] = useMutation(DELETE_LOCATION, { refetchQueries: [ GET_LOCATIONS ]})
+
+  const [newBrand, { dataNewBrand, loadingNewBrand, errorNewBrand }] = useMutation(NEW_BRAND, { refetchQueries: [ GET_BRANDS ]})
+  const [updateBrand, { dataUpdateBrand, loadingUpdateBrand, errorUpdateBrand}] = useMutation(UPDATE_BRAND, { refetchQueries: [ GET_BRANDS ]})
+  const [deleteBrand, { dataDeleteBrand, loadingDeleteBrand, errorDeleteBrand}] = useMutation(DELETE_BRAND, { refetchQueries: [ GET_BRANDS ]})
+
+  const [newCategory, { dataNewCategory, loadingNewCategory, errorNewCategory }] = useMutation(NEW_CATEGORY, { refetchQueries: [ GET_CATEGORIES ]})
+  const [updateCategory, { dataUpdateCategory, loadingUpdateCategory, errorUpdateCategory}] = useMutation(UPDATE_CATEGORY, { refetchQueries: [ GET_CATEGORIES ]})
+  const [deleteCategory, { dataDeleteCategory, loadingDeleteCategory, errorDeleteCategory}] = useMutation(DELETE_CATEGORY, { refetchQueries: [ GET_CATEGORIES ]})
 
   
   useEffect(() => {
@@ -182,6 +224,18 @@ const Account = ({}) => {
     setColor(currentColor.value)
   }, [currentColor])
 
+  useEffect(() => {
+    setLocation(currentLocation.value)
+  }, [currentLocation])
+
+  useEffect(() => {
+    setBrand(currentBrand.value)
+  }, [currentBrand])
+
+  useEffect(() => {
+    setCategory(currentCategory.value)
+  }, [currentCategory])
+
   //// LISTS
 
   useEffect(() => {
@@ -203,6 +257,18 @@ const Account = ({}) => {
   useEffect(() => {
     if(dataColors.data) setColors(dataColors.data.allColors)
   }, [dataColors])
+
+  useEffect(() => {
+    if(dataLocations.data) setLocations(dataLocations.data.allLocations)
+  }, [dataLocations])
+
+  useEffect(() => {
+    if(dataBrands.data) setBrands(dataBrands.data.allBrands)
+  }, [dataBrands])
+
+  useEffect(() => {
+    if(dataCategories.data) setCategories(dataCategories.data.allCategories)
+  }, [dataCategories])
 
   if(!user) return <div className="ring">Loading</div>
   
@@ -236,11 +302,16 @@ const Account = ({}) => {
             resetRemnant={resetRemnant}
             resetMaterial={resetMaterial}
             resetColor={resetColor}
+            resetLocation={resetLocation}
+            resetBrand={resetBrand}
             slabs={slabs}
             products={products}
             remnants={remnants}
             materials={materials}
             colors={colors}
+            locations={locations}
+            brands={brands}
+            categories={categories}
           />
         }
         { view == 'slabs' &&
@@ -301,6 +372,42 @@ const Account = ({}) => {
             editColor={editColor}
             deleteColor={deleteColor}
             refetch={refetchColors}
+          />
+        }
+        { view == 'locations' &&
+          <Locations
+            dispatch={dispatch}
+            changeView={changeView}
+            changePopup={changePopup}
+            changeEdit={changeEdit}
+            locations={locations}
+            editLocation={editLocation}
+            deleteLocation={deleteLocation}
+            refetch={refetchLocations}
+          />
+        }
+        { view == 'brands' &&
+          <Brands
+            dispatch={dispatch}
+            changeView={changeView}
+            changePopup={changePopup}
+            changeEdit={changeEdit}
+            brands={brands}
+            editBrand={editBrand}
+            deleteBrand={deleteBrand}
+            refetch={refetchBrands}
+          />
+        }
+        { view == 'categories' &&
+          <Categories
+            dispatch={dispatch}
+            changeView={changeView}
+            changePopup={changePopup}
+            changeEdit={changeEdit}
+            categories={categories}
+            editCategory={editCategory}
+            deleteCategory={deleteCategory}
+            refetch={refetchCategories}
           />
         }
       </div>
@@ -397,6 +504,51 @@ const Account = ({}) => {
           edit={edit}
           updateColor={updateColor}
           refetch={refetchColors}
+        />
+      }
+      { popup == 'newLocation' && 
+        <NewLocation
+          dispatch={dispatch}
+          changePopup={changePopup}
+          changeEdit={changeEdit}
+          changeLocationValue={changeLocationValue}
+          location={location}
+          newLocation={newLocation}
+          resetLocation={resetLocation}
+          changeView={changeView}
+          edit={edit}
+          updateLocation={updateLocation}
+          refetch={refetchLocations}
+        />
+      }
+      { popup == 'newBrand' && 
+        <NewBrond
+          dispatch={dispatch}
+          changePopup={changePopup}
+          changeEdit={changeEdit}
+          changeBrandValue={changeBrandValue}
+          brand={brand}
+          newBrand={newBrand}
+          resetBrand={resetBrand}
+          changeView={changeView}
+          edit={edit}
+          updateBrand={updateBrand}
+          refetch={refetchBrands}
+        />
+      }
+      { popup == 'newCategory' && 
+        <NewCategory
+          dispatch={dispatch}
+          changePopup={changePopup}
+          changeEdit={changeEdit}
+          changeCategoryValue={changeCategoryValue}
+          category={category}
+          newCategory={newCategory}
+          resetCategory={resetCategory}
+          changeView={changeView}
+          edit={edit}
+          updateCategory={updateCategory}
+          refetch={refetchCategories}
         />
       }
     </>

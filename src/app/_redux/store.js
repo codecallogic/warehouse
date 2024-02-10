@@ -6,6 +6,9 @@ import productReducer from './features/productSlice'
 import remnantReducer from './features/remnantSlice'
 import materialReducer from './features/materialSlice'
 import colorReducer from './features/colorSlice'
+import locationReducer from './features/locationSlice'
+import brandReducer from './features/brandSlice'
+import categoryReducer from './features/categorySlice'
 
 export const store = configureStore({
   reducer: {
@@ -15,6 +18,9 @@ export const store = configureStore({
     productReducer,
     remnantReducer,
     materialReducer,
-    colorReducer
+    colorReducer,
+    locationReducer,
+    brandReducer,
+    categoryReducer
   },
 })

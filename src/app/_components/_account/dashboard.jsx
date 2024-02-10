@@ -12,11 +12,16 @@ const Dashboard = ({
   resetRemnant,
   resetMaterial,
   resetColor,
+  resetLocation,
+  resetBrand,
   slabs,
   products,
   remnants,
   materials,
-  colors
+  colors,
+  locations,
+  brands,
+  categories
 }) => {
   
   return (
@@ -301,6 +306,96 @@ const Dashboard = ({
                   <h1 
                     className="text-[16px] font-poppins font-[400] underline text-blue-400 hover:cursor-pointer"
                     onClick={() => dispatch(changeView('colors'))}
+                  >
+                    view all
+                  </h1>
+                </div>
+              </div>
+            </div>
+            <div className="w-[22%] h-[172px] rounded-[20px] shadow-xl flex p-[30px]">
+              <div className="flex w-full">
+                <div className="w-[60%] flex flex-col">
+                  <h1 className="text-[32px] font-poppins font-[900]">{locations.length > 0 ? locations.length : '0'}</h1>
+                  <h2 className="pt-[5px] text-[18px] font-poppins font-[500]">Total Locations</h2>
+                  <div className="text-[16px] font-[400] font-poppins pt-[10px] text-grey"><span className="text-red">-2%</span> than last month</div>
+                </div>
+                <div className="w-[40%] flex flex-col items-center">
+                  <div 
+                    className="hover:cursor-pointer transition-all ease-linear hover:translate-y-1"
+                    onClick={() => (dispatch(changePopup('newLocation'), dispatch(changeEdit('')), dispatch(resetLocation())))}
+                  >
+                    <SVG
+                      svg={'plus'}
+                      width={48}
+                      height={48}
+                      schemeOne={'#09BD3C'}
+                    >
+                    </SVG>
+                  </div>
+                  <h1 className="text-[14px] font-poppins font-[400] mt-5">New Location</h1>
+                  <h1 
+                    className="text-[16px] font-poppins font-[400] underline text-blue-400 hover:cursor-pointer"
+                    onClick={() => dispatch(changeView('locations'))}
+                  >
+                    view all
+                  </h1>
+                </div>
+              </div>
+            </div>
+            <div className="w-[22%] h-[172px] rounded-[20px] shadow-xl flex p-[30px]">
+              <div className="flex w-full">
+                <div className="w-[60%] flex flex-col">
+                  <h1 className="text-[32px] font-poppins font-[900]">{brands.length > 0 ? brands.length : '0'}</h1>
+                  <h2 className="pt-[5px] text-[18px] font-poppins font-[500]">Total Brands</h2>
+                  <div className="text-[16px] font-[400] font-poppins pt-[10px] text-grey"><span className="text-red">-2%</span> than last month</div>
+                </div>
+                <div className="w-[40%] flex flex-col items-center">
+                  <div 
+                    className="hover:cursor-pointer transition-all ease-linear hover:translate-y-1"
+                    onClick={() => (dispatch(changePopup('newBrand'), dispatch(changeEdit('')), dispatch(resetBrand())))}
+                  >
+                    <SVG
+                      svg={'plus'}
+                      width={48}
+                      height={48}
+                      schemeOne={'#09BD3C'}
+                    >
+                    </SVG>
+                  </div>
+                  <h1 className="text-[14px] font-poppins font-[400] mt-5">New Brand</h1>
+                  <h1 
+                    className="text-[16px] font-poppins font-[400] underline text-blue-400 hover:cursor-pointer"
+                    onClick={() => dispatch(changeView('brands'))}
+                  >
+                    view all
+                  </h1>
+                </div>
+              </div>
+            </div>
+            <div className="w-[22%] h-[172px] rounded-[20px] shadow-xl flex p-[30px]">
+              <div className="flex w-full">
+                <div className="w-[60%] flex flex-col">
+                  <h1 className="text-[32px] font-poppins font-[900]">{categories.length > 0 ? categories.length : '0'}</h1>
+                  <h2 className="pt-[5px] text-[18px] font-poppins font-[500]">Total Categories</h2>
+                  <div className="text-[16px] font-[400] font-poppins pt-[10px] text-grey"><span className="text-red">-2%</span> than last month</div>
+                </div>
+                <div className="w-[40%] flex flex-col items-center">
+                  <div 
+                    className="hover:cursor-pointer transition-all ease-linear hover:translate-y-1"
+                    onClick={() => (dispatch(changePopup('newCategory'), dispatch(changeEdit('')), dispatch(resetBrand())))}
+                  >
+                    <SVG
+                      svg={'plus'}
+                      width={48}
+                      height={48}
+                      schemeOne={'#09BD3C'}
+                    >
+                    </SVG>
+                  </div>
+                  <h1 className="text-[14px] font-poppins font-[400] mt-5">New Category</h1>
+                  <h1 
+                    className="text-[16px] font-poppins font-[400] underline text-blue-400 hover:cursor-pointer"
+                    onClick={() => dispatch(changeView('categories'))}
                   >
                     view all
                   </h1>
