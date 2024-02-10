@@ -18,6 +18,8 @@ import NewRemnant from '../_components/_forms/remnant'
 import Remnants from '../_components/_account/remnants'
 import NewMaterial from '../_components/_forms/material'
 import Materials from '../_components/_account/materials'
+import Colors from '../_components/_account/colors'
+import NewColor from '../_components/_forms/color'
 
 //// REDUCERS
 import { useDispatch, useSelector } from "react-redux";
@@ -27,6 +29,7 @@ import { changeSlabArray, changeSlabValue, changeSlabImages, editSlab, resetSlab
 import { changeProductArray, changeProductValue, changeProductImages, editProduct, resetProduct } from "@/app/_redux/features/productSlice";
 import { changeRemnantArray, changeRemnantValue, changeRemnantImages, editRemnant, resetRemnant } from "../_redux/features/remnantSlice";
 import { changeMaterialValue, editMaterial, resetMaterial } from "../_redux/features/materialSlice";
+import { changeColorValue, editColor, resetColor } from "../_redux/features/colorSlice";
 
 ///// QUERIES
 import GET_USER from '@/app/_queries/fetchUser'
@@ -57,6 +60,9 @@ import DELETE_REMNANT from '@/app/_mutations/deleteRemnant'
 import NEW_MATERIAL from '@/app/_mutations/newMaterial'
 import UPDATE_MATERIAL from '@/app/_mutations/updateMaterial'
 import DELETE_MATERIAL from '@/app/_mutations/deleteMaterial'
+import NEW_COLOR from '@/app/_mutations/newColor'
+import UPDATE_COLOR from '@/app/_mutations/updateColor'
+import DELETE_COLOR from '@/app/_mutations/deleteColor'
 
 const Account = ({}) => {
   
@@ -75,11 +81,14 @@ const Account = ({}) => {
   const [remnants, setRemnants]               = useState([])  
   const [material, setMaterial]               = useState('')
   const [materials, setMaterials]             = useState([])
+  const [color, setColor]                     = useState('')
+  const [colors, setColors]                   = useState([])
   const currentNavigation                     = useSelector((state) => state.navigationReducer);
   const currentSlab                           = useSelector((state) => state.slabReducer)
   const currentProduct                        = useSelector((state) => state.productReducer)
   const currentRemnant                        = useSelector((state) => state.remnantReducer)
   const currentMaterial                       = useSelector((state) => state.materialReducer)
+  const currentColor                          = useSelector((state) => state.colorReducer)
   const [cookies, setCookie, removeCookie]    = useCookies(['token', 'user', 'view']);
   
   //// QUERIES
@@ -99,7 +108,8 @@ const Account = ({}) => {
   const { refetch: refetchSlabs  }            = useQuery(GET_SLABS, { variables: { id: cookies.user ? cookies.user.id : 'unknown', token: cookies.token ? cookies.token : 'unknown' } })
   const { refetch: refetchProducts  }         = useQuery(GET_PRODUCTS, { variables: { id: cookies.user ? cookies.user.id : 'unknown', token: cookies.token ? cookies.token : 'unknown' } })
   const { refetch: refetchRemnants  }         = useQuery(GET_REMNANTS, { variables: { id: cookies.user ? cookies.user.id : 'unknown', token: cookies.token ? cookies.token : 'unknown' } })
-  const { refetch: refetchMaterials  }         = useQuery(GET_MATERIALS, { variables: { id: cookies.user ? cookies.user.id : 'unknown', token: cookies.token ? cookies.token : 'unknown' } })
+  const { refetch: refetchMaterials  }        = useQuery(GET_MATERIALS, { variables: { id: cookies.user ? cookies.user.id : 'unknown', token: cookies.token ? cookies.token : 'unknown' } })
+  const { refetch: refetchColors  }           = useQuery(GET_COLORS, { variables: { id: cookies.user ? cookies.user.id : 'unknown', token: cookies.token ? cookies.token : 'unknown' } })
 
   //// MUTATIONS
   const [newSlab, { dataNewSlab, loadingNewSlab, errorNewSlab }] = useMutation(NEW_SLAB, { refetchQueries: [ GET_SLABS ]})
@@ -120,6 +130,10 @@ const Account = ({}) => {
   const [newMaterial, { dataNewMaterial, loadingNewMaterial, errorNewMaterial }] = useMutation(NEW_MATERIAL, { refetchQueries: [ GET_MATERIALS ]})
   const [updateMaterial, { dataUpdateMaterial, loadingUpdateMaterial, errorUpdateMaterial}] = useMutation(UPDATE_MATERIAL, { refetchQueries: [ GET_MATERIALS ]})
   const [deleteMaterial, { dataDeleteMaterial, loadingDeleteMaterial, errorDeleteMaterial}] = useMutation(DELETE_MATERIAL, { refetchQueries: [ GET_MATERIALS ]})
+
+  const [newColor, { dataNewColor, loadingNewColor, errorNewColor }] = useMutation(NEW_COLOR, { refetchQueries: [ GET_COLORS ]})
+  const [updateColor, { dataUpdateColor, loadingUpdateColor, errorUpdateColor}] = useMutation(UPDATE_COLOR, { refetchQueries: [ GET_COLORS ]})
+  const [deleteColor, { dataDeleteColor, loadingDeleteColor, errorDeleteColor}] = useMutation(DELETE_COLOR, { refetchQueries: [ GET_COLORS ]})
 
   
   useEffect(() => {
@@ -164,6 +178,10 @@ const Account = ({}) => {
     setMaterial(currentMaterial.value)
   }, [currentMaterial])
 
+  useEffect(() => {
+    setColor(currentColor.value)
+  }, [currentColor])
+
   //// LISTS
 
   useEffect(() => {
@@ -181,6 +199,10 @@ const Account = ({}) => {
   useEffect(() => {
     if(dataMaterials.data) setMaterials(dataMaterials.data.allMaterials)
   }, [dataMaterials])
+
+  useEffect(() => {
+    if(dataColors.data) setColors(dataColors.data.allColors)
+  }, [dataColors])
 
   if(!user) return <div className="ring">Loading</div>
   
@@ -213,10 +235,12 @@ const Account = ({}) => {
             resetProduct={resetProduct}
             resetRemnant={resetRemnant}
             resetMaterial={resetMaterial}
+            resetColor={resetColor}
             slabs={slabs}
             products={products}
             remnants={remnants}
             materials={materials}
+            colors={colors}
           />
         }
         { view == 'slabs' &&
@@ -265,6 +289,18 @@ const Account = ({}) => {
             editMaterial={editMaterial}
             deleteMaterial={deleteMaterial}
             refetch={refetchMaterials}
+          />
+        }
+        { view == 'colors' &&
+          <Colors
+            dispatch={dispatch}
+            changeView={changeView}
+            changePopup={changePopup}
+            changeEdit={changeEdit}
+            colors={colors}
+            editColor={editColor}
+            deleteColor={deleteColor}
+            refetch={refetchColors}
           />
         }
       </div>
@@ -346,6 +382,21 @@ const Account = ({}) => {
           edit={edit}
           updateMaterial={updateMaterial}
           refetch={refetchMaterials}
+        />
+      }
+      { popup == 'newColor' && 
+        <NewColor
+          dispatch={dispatch}
+          changePopup={changePopup}
+          changeEdit={changeEdit}
+          changeColorValue={changeColorValue}
+          color={color}
+          newColor={newColor}
+          resetColor={resetColor}
+          changeView={changeView}
+          edit={edit}
+          updateColor={updateColor}
+          refetch={refetchColors}
         />
       }
     </>

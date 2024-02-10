@@ -5,6 +5,7 @@ import slabReducer from './features/slabSlice'
 import productReducer from './features/productSlice'
 import remnantReducer from './features/remnantSlice'
 import materialReducer from './features/materialSlice'
+import colorReducer from './features/colorSlice'
 
 export const store = configureStore({
   reducer: {
@@ -13,6 +14,7 @@ export const store = configureStore({
     slabReducer,
     productReducer,
     remnantReducer,
-    materialReducer
+    materialReducer,
+    colorReducer
   },
 })
