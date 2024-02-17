@@ -14,6 +14,7 @@ const Dashboard = ({
   resetColor,
   resetLocation,
   resetBrand,
+  resetModel,
   slabs,
   products,
   remnants,
@@ -21,7 +22,8 @@ const Dashboard = ({
   colors,
   locations,
   brands,
-  categories
+  categories,
+  models
 }) => {
   
   return (
@@ -167,7 +169,7 @@ const Dashboard = ({
                 <div className="w-[60%] flex flex-col">
                   <h1 className="text-[32px] font-poppins font-[900]">{slabs.length > 0 ? slabs.length : '0'}</h1>
                   <h2 className="pt-[5px] text-[18px] font-poppins font-[500]">Total Slabs</h2>
-                  <div className="text-[16px] font-[400] font-poppins pt-[10px] text-grey"><span className="text-red">-2%</span> than last month</div>
+                  <div className="text-[16px] font-[400] font-poppins pt-[10px] text-grey"></div>
                 </div>
                 <div className="w-[40%] flex flex-col items-center">
                   <div 
@@ -197,7 +199,7 @@ const Dashboard = ({
                 <div className="w-[60%] flex flex-col">
                   <h1 className="text-[32px] font-poppins font-[900]">{products.length > 0 ? products.length : '0'}</h1>
                   <h2 className="pt-[5px] text-[18px] font-poppins font-[500]">Total Products</h2>
-                  <div className="text-[16px] font-[400] font-poppins pt-[10px] text-grey"><span className="text-red">-2%</span> than last month</div>
+                  <div className="text-[16px] font-[400] font-poppins pt-[10px] text-grey"></div>
                 </div>
                 <div className="w-[40%] flex flex-col items-center">
                   <div 
@@ -227,7 +229,7 @@ const Dashboard = ({
                 <div className="w-[60%] flex flex-col">
                   <h1 className="text-[32px] font-poppins font-[900]">{remnants.length > 0 ? remnants.length : '0'}</h1>
                   <h2 className="pt-[5px] text-[18px] font-poppins font-[500]">Total Remnants</h2>
-                  <div className="text-[16px] font-[400] font-poppins pt-[10px] text-grey"><span className="text-red">-2%</span> than last month</div>
+                  <div className="text-[16px] font-[400] font-poppins pt-[10px] text-grey"></div>
                 </div>
                 <div className="w-[40%] flex flex-col items-center">
                   <div 
@@ -257,7 +259,7 @@ const Dashboard = ({
                 <div className="w-[60%] flex flex-col">
                   <h1 className="text-[32px] font-poppins font-[900]">{materials.length > 0 ? materials.length : '0'}</h1>
                   <h2 className="pt-[5px] text-[18px] font-poppins font-[500]">Total Materials</h2>
-                  <div className="text-[16px] font-[400] font-poppins pt-[10px] text-grey"><span className="text-red">-2%</span> than last month</div>
+                  <div className="text-[16px] font-[400] font-poppins pt-[10px] text-grey"></div>
                 </div>
                 <div className="w-[40%] flex flex-col items-center">
                   <div 
@@ -287,7 +289,7 @@ const Dashboard = ({
                 <div className="w-[60%] flex flex-col">
                   <h1 className="text-[32px] font-poppins font-[900]">{colors.length > 0 ? colors.length : '0'}</h1>
                   <h2 className="pt-[5px] text-[18px] font-poppins font-[500]">Total Colors</h2>
-                  <div className="text-[16px] font-[400] font-poppins pt-[10px] text-grey"><span className="text-red">-2%</span> than last month</div>
+                  <div className="text-[16px] font-[400] font-poppins pt-[10px] text-grey"></div>
                 </div>
                 <div className="w-[40%] flex flex-col items-center">
                   <div 
@@ -317,7 +319,7 @@ const Dashboard = ({
                 <div className="w-[60%] flex flex-col">
                   <h1 className="text-[32px] font-poppins font-[900]">{locations.length > 0 ? locations.length : '0'}</h1>
                   <h2 className="pt-[5px] text-[18px] font-poppins font-[500]">Total Locations</h2>
-                  <div className="text-[16px] font-[400] font-poppins pt-[10px] text-grey"><span className="text-red">-2%</span> than last month</div>
+                  <div className="text-[16px] font-[400] font-poppins pt-[10px] text-grey"></div>
                 </div>
                 <div className="w-[40%] flex flex-col items-center">
                   <div 
@@ -347,7 +349,7 @@ const Dashboard = ({
                 <div className="w-[60%] flex flex-col">
                   <h1 className="text-[32px] font-poppins font-[900]">{brands.length > 0 ? brands.length : '0'}</h1>
                   <h2 className="pt-[5px] text-[18px] font-poppins font-[500]">Total Brands</h2>
-                  <div className="text-[16px] font-[400] font-poppins pt-[10px] text-grey"><span className="text-red">-2%</span> than last month</div>
+                  <div className="text-[16px] font-[400] font-poppins pt-[10px] text-grey"></div>
                 </div>
                 <div className="w-[40%] flex flex-col items-center">
                   <div 
@@ -377,7 +379,7 @@ const Dashboard = ({
                 <div className="w-[60%] flex flex-col">
                   <h1 className="text-[32px] font-poppins font-[900]">{categories.length > 0 ? categories.length : '0'}</h1>
                   <h2 className="pt-[5px] text-[18px] font-poppins font-[500]">Total Categories</h2>
-                  <div className="text-[16px] font-[400] font-poppins pt-[10px] text-grey"><span className="text-red">-2%</span> than last month</div>
+                  <div className="text-[16px] font-[400] font-poppins pt-[10px] text-grey"></div>
                 </div>
                 <div className="w-[40%] flex flex-col items-center">
                   <div 
@@ -396,6 +398,36 @@ const Dashboard = ({
                   <h1 
                     className="text-[16px] font-poppins font-[400] underline text-blue-400 hover:cursor-pointer"
                     onClick={() => dispatch(changeView('categories'))}
+                  >
+                    view all
+                  </h1>
+                </div>
+              </div>
+            </div>
+            <div className="w-[22%] h-[172px] rounded-[20px] shadow-xl flex p-[30px]">
+              <div className="flex w-full">
+                <div className="w-[60%] flex flex-col">
+                  <h1 className="text-[32px] font-poppins font-[900]">{models.length > 0 ? models.length : '0'}</h1>
+                  <h2 className="pt-[5px] text-[18px] font-poppins font-[500]">Total Models</h2>
+                  <div className="text-[16px] font-[400] font-poppins pt-[10px] text-grey"></div>
+                </div>
+                <div className="w-[40%] flex flex-col items-center">
+                  <div 
+                    className="hover:cursor-pointer transition-all ease-linear hover:translate-y-1"
+                    onClick={() => (dispatch(changePopup('newModel'), dispatch(changeEdit('')), dispatch(resetModel())))}
+                  >
+                    <SVG
+                      svg={'plus'}
+                      width={48}
+                      height={48}
+                      schemeOne={'#09BD3C'}
+                    >
+                    </SVG>
+                  </div>
+                  <h1 className="text-[14px] font-poppins font-[400] mt-5">New Model</h1>
+                  <h1 
+                    className="text-[16px] font-poppins font-[400] underline text-blue-400 hover:cursor-pointer"
+                    onClick={() => dispatch(changeView('models'))}
                   >
                     view all
                   </h1>

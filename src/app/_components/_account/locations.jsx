@@ -59,7 +59,7 @@ const Locations = ({
         </div>
       }
     </div>
-    <div className="px-[50px] pt-[20px] bg-white h-full">
+    <div className="px-[50px] pt-[20px] bg-white min-h-screen">
       <div className="flex items-center bg-schemethree p-5 rounded-xl">
         <h1 className="text-[18px] font-poppins font-[600] text-black">All Locations</h1>
       </div>

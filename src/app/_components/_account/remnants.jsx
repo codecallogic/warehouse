@@ -59,7 +59,7 @@ const Remnants = ({
         </div>
       }
     </div>
-    <div className="px-[50px] pt-[20px] bg-white h-full">
+    <div className="px-[50px] pt-[20px] bg-white min-h-screen">
       <div className="flex items-center bg-schemethree p-5 rounded-xl">
         <h1 className="text-[18px] font-poppins font-[600] text-black">All Remnants</h1>
       </div>
@@ -134,7 +134,7 @@ const Remnants = ({
                 </div>
                 { dropdown == `${item.id}editInfo` &&
                   <div className="relative top-[100%] left-[-180px]">
-                    <div className="absolute w-[200px] h-[50px rounded-xl bg-slate-200">
+                    <div className="absolute w-[200px] rounded-xl bg-slate-200">
                       <div 
                         className="p-2 hover:bg-gold rounded-xl hover:text-white"
                         onClick={(e) => (dispatch(changePopup('newRemnant')), dispatch(changeEdit('remnant')), dispatch(editRemnant({ id: item.id, items: remnants}), setDropdown('')))}

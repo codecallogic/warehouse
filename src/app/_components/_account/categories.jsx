@@ -59,11 +59,11 @@ const Categories = ({
         </div>
       }
     </div>
-    <div className="px-[50px] pt-[20px] bg-white h-full">
+    <div className="px-[50px] pt-[20px] bg-white min-h-screen">
       <div className="flex items-center bg-schemethree p-5 rounded-xl">
         <h1 className="text-[18px] font-poppins font-[600] text-black">All Categories</h1>
       </div>
-      <div className="mt-[40px] flex flex-col gap-y-4">
+      <div className="mt-[40px] flex flex-col gap-y-4 mb-10">
         { categories && categories.map((item, idx) => 
           <div 
             key={idx}

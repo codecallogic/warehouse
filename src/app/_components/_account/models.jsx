@@ -2,14 +2,14 @@
 import { useState } from "react"
 import SVG from '@/app/_libs/svg'
 
-const Colors = ({
+const Models = ({
   dispatch,
   changeView,
   changePopup,
   changeEdit,
-  colors,
-  editColor,
-  deleteColor,
+  models,
+  editModel,
+  deleteModel,
   refetch
 }) => {
 
@@ -17,19 +17,19 @@ const Colors = ({
   const [message, setMessage] = useState('')
   const [loading, setLoading] = useState('')
 
-  const submitDeleteColor = async (id) => {
+  const submitDeleteModel = async (id) => {
 
-    setLoading('deleteColor')
+    setLoading('deleteModel')
     
     try {
-      const response = await deleteColor({
+      const response = await deleteModel({
         variables: {
           id: id
         }
       })
 
       setLoading('')
-      setMessage(response.data.deleteColor.message)
+      setMessage(response.data.deleteModel.message)
       refetch()
       
     } catch (error) {
@@ -61,10 +61,10 @@ const Colors = ({
     </div>
     <div className="px-[50px] pt-[20px] bg-white min-h-screen">
       <div className="flex items-center bg-schemethree p-5 rounded-xl">
-        <h1 className="text-[18px] font-poppins font-[600] text-black">All Colors</h1>
+        <h1 className="text-[18px] font-poppins font-[600] text-black">All Models</h1>
       </div>
-      <div className="mt-[40px] flex flex-col gap-y-4">
-        { colors && colors.map((item, idx) => 
+      <div className="mt-[40px] flex flex-col gap-y-4 mb-10">
+        { models && models.map((item, idx) => 
           <div 
             key={idx}
             className="w-full rounded-[20px] px-3 py-3 h-[50px] shadow-lg flex items-start gap-x-5 gap-y-2 max-xl:h-[100%] max-xl:items-start max-xl:justify-center max-xl:w-[100%] relative"
@@ -89,13 +89,13 @@ const Colors = ({
                     <div className="absolute w-[200px] h-[50px rounded-xl bg-slate-200">
                       <div 
                         className="p-2 hover:bg-gold rounded-xl hover:text-white"
-                        onClick={(e) => (dispatch(changePopup('newColor')), dispatch(changeEdit('color')), dispatch(editColor({ id: item.id, items: colors }), setDropdown('')))}
+                        onClick={(e) => (dispatch(changePopup('newModel')), dispatch(changeEdit('model')), dispatch(editModel({ id: item.id, items: models }), setDropdown('')))}
                       >
-                        Edit Color
+                        Edit Model
                       </div>
                       <div 
                         className="p-2 hover:bg-gold rounded-xl hover:text-white"
-                        onClick={(e) => (submitDeleteColor(item.id), setDropdown(''))}
+                        onClick={(e) => (submitDeleteModel(item.id), setDropdown(''))}
                       >
                         Delete
                       </div>
@@ -112,4 +112,4 @@ const Colors = ({
   )
 }
 
-export default Colors
+export default Models

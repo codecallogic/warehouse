@@ -26,6 +26,8 @@ import Brands from '../_components/_account/brands'
 import NewBrond from '../_components/_forms/brand'
 import Categories from '../_components/_account/categories'
 import NewCategory from '../_components/_forms/category'
+import Models from '../_components/_account/models'
+import NewModel from '../_components/_forms/model'
 
 //// REDUCERS
 import { useDispatch, useSelector } from "react-redux";
@@ -39,6 +41,7 @@ import { changeColorValue, editColor, resetColor } from "../_redux/features/colo
 import { changeLocationValue, editLocation, resetLocation } from "../_redux/features/locationSlice";
 import { changeBrandValue, editBrand, resetBrand } from "../_redux/features/brandSlice";
 import { changeCategoryValue, editCategory, resetCategory } from "../_redux/features/categorySlice";
+import { changeModelValue, editModel, resetModel } from "../_redux/features/modelSlice";
 
 ///// QUERIES
 import GET_USER from '@/app/_queries/fetchUser'
@@ -81,6 +84,9 @@ import DELETE_BRAND from '@/app/_mutations/deleteBrand'
 import NEW_CATEGORY from '@/app/_mutations/newCategory'
 import UPDATE_CATEGORY from '@/app/_mutations/updateCategory'
 import DELETE_CATEGORY from '@/app/_mutations/deleteCategory'
+import NEW_MODEL from '@/app/_mutations/newModel'
+import UPDATE_MODEL from '@/app/_mutations/updateModel'
+import DELETE_MODEL from '@/app/_mutations/deleteModel'
 
 const Account = ({}) => {
   
@@ -107,6 +113,8 @@ const Account = ({}) => {
   const [brands, setBrands]                   = useState([])
   const [category, setCategory]               = useState('')
   const [categories, setCategories]           = useState([])
+  const [model, setModel]                     = useState('')
+  const [models, setModels]                   = useState([])
   const currentNavigation                     = useSelector((state) => state.navigationReducer);
   const currentSlab                           = useSelector((state) => state.slabReducer)
   const currentProduct                        = useSelector((state) => state.productReducer)
@@ -116,6 +124,7 @@ const Account = ({}) => {
   const currentLocation                       = useSelector((state) => state.locationReducer)
   const currentBrand                          = useSelector((state) => state.brandReducer)
   const currentCategory                       = useSelector((state) => state.categoryReducer )
+  const currentModel                          = useSelector((state) => state.modelReducer )
   const [cookies, setCookie, removeCookie]    = useCookies(['token', 'user', 'view']);
   
   //// QUERIES
@@ -140,6 +149,7 @@ const Account = ({}) => {
   const { refetch: refetchLocations  }        = useQuery(GET_LOCATIONS, { variables: { id: cookies.user ? cookies.user.id : 'unknown', token: cookies.token ? cookies.token : 'unknown' } })
   const { refetch: refetchBrands  }           = useQuery(GET_BRANDS, { variables: { id: cookies.user ? cookies.user.id : 'unknown', token: cookies.token ? cookies.token : 'unknown' } })
   const { refetch: refetchCategories  }       = useQuery(GET_CATEGORIES, { variables: { id: cookies.user ? cookies.user.id : 'unknown', token: cookies.token ? cookies.token : 'unknown' } })
+  const { refetch: refetchModels  }           = useQuery(GET_MODELS, { variables: { id: cookies.user ? cookies.user.id : 'unknown', token: cookies.token ? cookies.token : 'unknown' } })
 
   //// MUTATIONS
   const [newSlab, { dataNewSlab, loadingNewSlab, errorNewSlab }] = useMutation(NEW_SLAB, { refetchQueries: [ GET_SLABS ]})
@@ -177,6 +187,9 @@ const Account = ({}) => {
   const [updateCategory, { dataUpdateCategory, loadingUpdateCategory, errorUpdateCategory}] = useMutation(UPDATE_CATEGORY, { refetchQueries: [ GET_CATEGORIES ]})
   const [deleteCategory, { dataDeleteCategory, loadingDeleteCategory, errorDeleteCategory}] = useMutation(DELETE_CATEGORY, { refetchQueries: [ GET_CATEGORIES ]})
 
+  const [newModel, { dataNewModel, loadingNewModel, errorNewModel }] = useMutation(NEW_MODEL, { refetchQueries: [ GET_MODELS ]})
+  const [updateModel, { dataUpdateModel, loadingUpdateModel, errorUpdateModel }] = useMutation(UPDATE_MODEL, { refetchQueries: [ GET_MODELS ]})
+  const [deleteModel, { dataDeleteModel, loadingDeleteModel, errorDeleteModel }] = useMutation(DELETE_MODEL, { refetchQueries: [ GET_MODELS ]})
   
   useEffect(() => {
 
@@ -236,6 +249,10 @@ const Account = ({}) => {
     setCategory(currentCategory.value)
   }, [currentCategory])
 
+  useEffect(() => {
+    setModel(currentModel.value)
+  }, [currentModel])
+
   //// LISTS
 
   useEffect(() => {
@@ -270,6 +287,10 @@ const Account = ({}) => {
     if(dataCategories.data) setCategories(dataCategories.data.allCategories)
   }, [dataCategories])
 
+  useEffect(() => {
+    if(dataModels.data) setModels(dataModels.data.allModels)
+  }, [dataModels])
+
   if(!user) return <div className="ring">Loading</div>
   
   return (
@@ -281,6 +302,7 @@ const Account = ({}) => {
           logout={logout}
           router={router}
           view={view}
+          user={user}
         />
       </main>
       <div className="w-full flex flex-col">
@@ -304,6 +326,7 @@ const Account = ({}) => {
             resetColor={resetColor}
             resetLocation={resetLocation}
             resetBrand={resetBrand}
+            resetModel={resetModel}
             slabs={slabs}
             products={products}
             remnants={remnants}
@@ -312,6 +335,7 @@ const Account = ({}) => {
             locations={locations}
             brands={brands}
             categories={categories}
+            models={models}
           />
         }
         { view == 'slabs' &&
@@ -408,6 +432,18 @@ const Account = ({}) => {
             editCategory={editCategory}
             deleteCategory={deleteCategory}
             refetch={refetchCategories}
+          />
+        }
+        { view == 'models' &&
+          <Models
+            dispatch={dispatch}
+            changeView={changeView}
+            changePopup={changePopup}
+            changeEdit={changeEdit}
+            models={models}
+            editModel={editModel}
+            deleteModel={deleteModel}
+            refetch={refetchModels}
           />
         }
       </div>
@@ -549,6 +585,21 @@ const Account = ({}) => {
           edit={edit}
           updateCategory={updateCategory}
           refetch={refetchCategories}
+        />
+      }
+      { popup == 'newModel' && 
+        <NewModel
+          dispatch={dispatch}
+          changePopup={changePopup}
+          changeEdit={changeEdit}
+          changeModelValue={changeModelValue}
+          model={model}
+          newModel={newModel}
+          resetModel={resetModel}
+          changeView={changeView}
+          edit={edit}
+          updateModel={updateModel}
+          refetch={refetchModels}
         />
       }
     </>

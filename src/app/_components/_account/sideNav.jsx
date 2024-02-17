@@ -9,13 +9,14 @@ const Nav = ({
   changeView,
   logout,
   router,
-  view
+  view,
+  user
 }) => {
   
   return (
     <div
       id="mobile-menu"
-      className="hidden absolute left-0 top-0 z-20 w-[345px] bg-white h-screen shadow-lg dark:bg-darkSchemeOne"
+      className="absolute left-0 top-0 z-20 w-[345px] bg-white h-[100%] shadow-lg dark:bg-darkSchemeOne"
     >
       <div className="w-full flex flex-col items-center relative overflow-y-auto">
         <div
@@ -40,6 +41,19 @@ const Nav = ({
           />
         </div>
         <div>
+          <div className="flex items-center">
+            <div className="ml-[30px] rounded-[50%] w-[60px] h-[60px] bg-gradient-to-r from-gold via-schemethree to-goldShadeOne p-1">
+              <div className="rounded-[50%] flex h-full w-full items-center justify-center bg-white back p-1">
+                <div className="rounded-[50%] flex h-full w-full items-center justify-center bg-grey back p-1">
+
+                </div>
+              </div>
+            </div>
+            <div className="flex flex-col mx-3">
+              <h2 className="font-[600] text-[18px]">{user.firstName} {user.lastName}</h2>
+              <h2 className="font-[400] text-[16px] text-grey">{user.username}</h2>
+            </div>
+          </div>
           <div className="w-[345px] px-[50px] text-[18px] font-[900] pt-[20px] text-grey">Main Menu</div>
           <div
             className={`w-[303px] px-[50px] mt-[12px] h-[60px] flex items-center gap-x-[30px] hover:cursor-pointer ` + ( view == 'dashboard' ? 'text-gold border-l-[9px] border-gold tab bg-goldShadeOne rounded-br-[150px] rounded-tr-[20px]' : ' text-black' )}

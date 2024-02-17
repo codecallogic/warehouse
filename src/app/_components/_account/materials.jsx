@@ -59,7 +59,7 @@ const Materials = ({
         </div>
       }
     </div>
-    <div className="px-[50px] pt-[20px] bg-white h-full">
+    <div className="px-[50px] pt-[20px] bg-white min-h-screen">
       <div className="flex items-center bg-schemethree p-5 rounded-xl">
         <h1 className="text-[18px] font-poppins font-[600] text-black">All Materials</h1>
       </div>
@@ -67,7 +67,7 @@ const Materials = ({
         { materials && materials.map((item, idx) => 
           <div 
             key={idx}
-            className="w-full rounded-[20px] px-3 py-3 h-[200px] shadow-lg flex items-start gap-x-5 gap-y-2 max-xl:h-[100%] max-xl:items-start max-xl:justify-center max-xl:w-[100%] relative"
+            className="w-full rounded-[20px] px-3 py-3 h-[150px] shadow-lg flex items-start gap-x-5 gap-y-2 max-xl:h-[100%] max-xl:items-start max-xl:justify-center max-xl:w-[100%] relative"
           >
             <h3 className="text-[18px] font-poppins font-[500] text-gol">
               <span className="font-[600]">{item.name ? item.name : 'no name'}</span>
@@ -89,7 +89,7 @@ const Materials = ({
                 </div>
                 { dropdown == `${item.id}editInfo` &&
                   <div className="relative top-[100%] left-[-180px]">
-                    <div className="absolute w-[200px] h-[50px rounded-xl bg-slate-200">
+                    <div className="absolute w-[200px] rounded-xl bg-slate-200">
                       <div 
                         className="p-2 hover:bg-gold rounded-xl hover:text-white"
                         onClick={(e) => (dispatch(changePopup('newMaterial')), dispatch(changeEdit('material')), dispatch(editMaterial({ id: item.id, items: materials }), setDropdown('')))}
